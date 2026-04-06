@@ -1,0 +1,27 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "EmployeeManagementSystem/lib/javafx.base.jar",
+        "EmployeeManagementSystem/lib/javafx.controls.jar",
+        "EmployeeManagementSystem/lib/javafx.fxml.jar",
+        "EmployeeManagementSystem/lib/javafx.graphics.jar",
+        "EmployeeManagementSystem/lib/javafx.media.jar",
+        "EmployeeManagementSystem/lib/javafx.swing.jar",
+        "EmployeeManagementSystem/lib/javafx.web.jar",
+        "EmployeeManagementSystem/lib/javafx-swt.jar",
+        "EmployeeManagementSystem/lib/jdk.jsobject.jar",
+        "EmployeeManagementSystem/lib/jfx.incubator.input.jar",
+        "EmployeeManagementSystem/lib/jfx.incubator.richtext.jar",
+        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/javafx.base.jar",
+        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/javafx.controls.jar",
+        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/javafx.fxml.jar",
+        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/javafx.graphics.jar",
+        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/javafx.media.jar",
+        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/javafx.swing.jar",
+        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/javafx.web.jar",
+        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/javafx-swt.jar",
+        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jdk.jsobject.jar",
+        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jfx.incubator.input.jar",
+        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jfx.incubator.richtext.jar"
+    ]
+}
