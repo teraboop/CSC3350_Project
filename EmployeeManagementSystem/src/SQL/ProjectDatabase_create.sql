@@ -12,7 +12,6 @@ CREATE TABLE employees (
   Salary DECIMAL(10,2) NOT NULL,
   SSN VARCHAR(12),
   addressID INT NOT NULL,
-  PRIMARY KEY (addressID),
   FOREIGN KEY (addressID) REFERENCES addresses(addressID)
 );
 
@@ -30,7 +29,6 @@ CREATE TABLE payroll (
   retire_401k DECIMAL(7,2),
   health_care DECIMAL(7,2),
   empid INT,
-  PRIMARY KEY(empid),
   FOREIGN KEY (empid) REFERENCES employees(empid)
 );
 
@@ -56,7 +54,6 @@ DROP TABLE IF EXISTS employee_division;
 CREATE TABLE employee_division (
   empid int NOT NULL,
   div_ID int NOT NULL,
-  PRIMARY KEY (empid),
   FOREIGN KEY (empid) REFERENCES employees(empid)
 ) COMMENT='links employee to a division';
 
