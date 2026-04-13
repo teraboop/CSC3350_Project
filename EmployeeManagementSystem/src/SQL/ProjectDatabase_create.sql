@@ -2,10 +2,9 @@
 CREATE DATABASE projectEmployeeData;
 USE projectEmployeeData;
 
-
 DROP TABLE IF EXISTS employees;
 CREATE TABLE employees (
-  empid INT NOT NULL,
+  empid INT NOT NULL PRIMARY KEY,
   Fname VARCHAR(65) NOT NULL,
   Lname VARCHAR(65) NOT NULL,
   email VARCHAR(65) NOT NULL,
@@ -13,7 +12,7 @@ CREATE TABLE employees (
   Salary DECIMAL(10,2) NOT NULL,
   SSN VARCHAR(12),
   addressID INT NOT NULL,
-  PRIMARY KEY (empid)
+  FOREIGN KEY (addressID) REFERENCES addresses(addressID)
 );
 
 /***********************************************************************/
@@ -29,7 +28,8 @@ CREATE TABLE payroll (
   state_tax DECIMAL(7,2),
   retire_401k DECIMAL(7,2),
   health_care DECIMAL(7,2),
-  empid INT
+  empid INT,
+  FOREIGN KEY (empid) REFERENCES employees(empid)
 );
 
 /***********************************************************************/ 
@@ -37,14 +37,16 @@ CREATE TABLE payroll (
 DROP TABLE IF EXISTS employee_job_titles ;
 CREATE TABLE employee_job_titles (
   empid INT NOT NULL,
-  job_title_id INT NOT NULL
+  job_title_id INT NOT NULL,
+  FOREIGN KEY (empid) REFERENCES employees(empid),
+  FOREIGN KEY (job_title_id) REFERENCES job_titles(job_title_id)
 );
 
 /***********************************************************************/ 
 
 DROP TABLE IF EXISTS job_titles;
 CREATE TABLE job_titles (
-  job_title_id INT,
+  job_title_id INT PRIMARY KEY,
   job_title VARCHAR(125) NOT NULL
 );
 
@@ -53,15 +55,16 @@ CREATE TABLE job_titles (
 DROP TABLE IF EXISTS employee_division;
 CREATE TABLE employee_division (
   empid int NOT NULL,
-  div_ID int NOT NULL,
-  PRIMARY KEY (empid)
+  divID int NOT NULL,
+  FOREIGN KEY (empid) REFERENCES employees(empid),
+  FOREIGN KEY (divId) REFERENCES division(divID)
 ) COMMENT='links employee to a division';
 
 /***********************************************************************/
 
 DROP TABLE IF EXISTS division;
 CREATE TABLE division (
-  ID int NOT NULL,
+  divID int NOT NULL PRIMARY KEY,
   Name varchar(100) DEFAULT NULL,
   city varchar(50) NOT NULL,
   addressLine1 varchar(50) NOT NULL,
@@ -72,3 +75,34 @@ CREATE TABLE division (
 ) COMMENT='company divisions';
 
 /***********************************************************************/ 
+
+DROP TABLE IF EXISTS addresses;
+CREATE TABLE addresses (
+  addressID INT NOT NULL PRIMARY KEY,
+  street varchar(50) NOT NULL,
+  cityID INT NOT NULL,
+  stateID INT NOT NULL,
+  zip VARCHAR(10) NOT NULL,
+  DOB varchar(10) NOT NULL,
+  phone varchar(10) NOT NULL,
+  emergencyContactName varchar(100) NOT NULL,
+  emergencyContactPhone varchar(10) NOT NULL,
+  FOREIGN KEY (cityID) REFERENCES cities(cityID)
+  FOREIGN KEY (stateID) REFERENCES states(stateID)
+);
+
+/***********************************************************************/ 
+
+DROP TABLE IF EXISTS cities;
+CREATE TABLE cities (
+  cityID varchar(50) NOT NULL PRIMARY KEY,
+  cityName varchar(25) NOT NULL
+);
+
+/***********************************************************************/ 
+
+DROP TABLE IF EXISTS states;
+CREATE TABLE states (
+  stateID varchar(50) NOT NULL PRIMARY KEY,
+  stateAbbr varchar(2) NOT NULL
+);
