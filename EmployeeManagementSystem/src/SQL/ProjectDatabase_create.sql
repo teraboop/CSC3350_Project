@@ -2,22 +2,6 @@
 CREATE DATABASE projectEmployeeData;
 USE projectEmployeeData;
 
-/***********************************************************************/ 
-
-DROP TABLE IF EXISTS addresses;
-CREATE TABLE addresses (
-  addressID INT NOT NULL PRIMARY KEY,
-  street varchar(50) NOT NULL,
-  cityID INT NOT NULL,
-  stateID INT NOT NULL,
-  zip VARCHAR(10) NOT NULL,
-  DOB varchar(10) NOT NULL,
-  phone varchar(10) NOT NULL,
-  emergencyContactName varchar(100) NOT NULL,
-  emergencyContactPhone varchar(10) NOT NULL,
-  FOREIGN KEY (cityID) REFERENCES cities(cityID),
-  FOREIGN KEY (stateID) REFERENCES states(stateID)
-);
 
 /***********************************************************************/ 
 
@@ -33,6 +17,23 @@ DROP TABLE IF EXISTS states;
 CREATE TABLE states (
   stateID INT NOT NULL PRIMARY KEY,
   stateAbbr varchar(2) NOT NULL
+);
+
+/***********************************************************************/ 
+
+DROP TABLE IF EXISTS addresses;
+CREATE TABLE addresses (
+  addressID INT NOT NULL PRIMARY KEY,
+  street varchar(50) NOT NULL,
+  cityID INT NOT NULL,
+  stateID INT NOT NULL,
+  zip VARCHAR(10) NOT NULL,
+  DOB varchar(10) NOT NULL,
+  phone varchar(10) NOT NULL,
+  emergencyContactName varchar(100) NOT NULL,
+  emergencyContactPhone varchar(10) NOT NULL,
+  FOREIGN KEY (cityID) REFERENCES cities(cityID),
+  FOREIGN KEY (stateID) REFERENCES states(stateID)
 );
 
 /***********************************************************************/ 
