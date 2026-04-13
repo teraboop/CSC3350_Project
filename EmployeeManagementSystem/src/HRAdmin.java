@@ -1,24 +1,9 @@
-public class HRAdmin implements EmployeeI {
-    private String classify;
+public class HRAdmin extends Employee {
     public HRAdmin(){
-        classify = getClassify();
-    }
-
-    public int getEmpID(){
-        return 0;
-    }
-    public String getEmploymentDate(){
-        return "";
-    }
-    public String getAddress(){
-        return "";
-    }
-    public String getClassify(){
-        return "";
-    }
-    public void searchEmp(){
+        super(/* empID, employmentDate, address, classify*/);
 
     }
+
     public void updateSalary(){
 
     }
