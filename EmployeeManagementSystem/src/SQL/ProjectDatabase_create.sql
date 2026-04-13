@@ -87,7 +87,7 @@ CREATE TABLE addresses (
   phone varchar(10) NOT NULL,
   emergencyContactName varchar(100) NOT NULL,
   emergencyContactPhone varchar(10) NOT NULL,
-  FOREIGN KEY (cityID) REFERENCES cities(cityID)
+  FOREIGN KEY (cityID) REFERENCES cities(cityID),
   FOREIGN KEY (stateID) REFERENCES states(stateID)
 );
 
@@ -95,7 +95,7 @@ CREATE TABLE addresses (
 
 DROP TABLE IF EXISTS cities;
 CREATE TABLE cities (
-  cityID varchar(50) NOT NULL PRIMARY KEY,
+  cityID INT NOT NULL PRIMARY KEY,
   cityName varchar(25) NOT NULL
 );
 
@@ -103,6 +103,6 @@ CREATE TABLE cities (
 
 DROP TABLE IF EXISTS states;
 CREATE TABLE states (
-  stateID varchar(50) NOT NULL PRIMARY KEY,
+  stateID INT NOT NULL PRIMARY KEY,
   stateAbbr varchar(2) NOT NULL
 );
