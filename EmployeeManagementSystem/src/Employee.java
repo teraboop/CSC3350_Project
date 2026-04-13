@@ -1,20 +1,23 @@
 public class Employee implements EmployeeI {
     private String classify;
+    private int empID;
+    private String employmentDate;
+    private String address;
     public Employee(){
         classify = getClassify();
     }
 
     public int getEmpID(){
-        return 0;
+        return empID;
     }
     public String getEmploymentDate(){
-        return "";
+        return employmentDate;
     }
     public String getAddress(){
-        return "";
+        return address;
     }
     public String getClassify(){
-        return "";
+        return classify;
     }
     public void searchEmp(){
 
