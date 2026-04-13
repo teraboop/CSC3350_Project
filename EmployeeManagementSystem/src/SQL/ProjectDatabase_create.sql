@@ -2,6 +2,42 @@
 CREATE DATABASE projectEmployeeData;
 USE projectEmployeeData;
 
+
+/***********************************************************************/ 
+
+DROP TABLE IF EXISTS cities;
+CREATE TABLE cities (
+  cityID INT NOT NULL PRIMARY KEY,
+  cityName varchar(25) NOT NULL
+);
+
+/***********************************************************************/ 
+
+DROP TABLE IF EXISTS states;
+CREATE TABLE states (
+  stateID INT NOT NULL PRIMARY KEY,
+  stateAbbr varchar(2) NOT NULL
+);
+
+/***********************************************************************/ 
+
+DROP TABLE IF EXISTS addresses;
+CREATE TABLE addresses (
+  addressID INT NOT NULL PRIMARY KEY,
+  street varchar(50) NOT NULL,
+  cityID INT NOT NULL,
+  stateID INT NOT NULL,
+  zip VARCHAR(10) NOT NULL,
+  DOB varchar(10) NOT NULL,
+  phone varchar(10) NOT NULL,
+  emergencyContactName varchar(100) NOT NULL,
+  emergencyContactPhone varchar(10) NOT NULL,
+  FOREIGN KEY (cityID) REFERENCES cities(cityID),
+  FOREIGN KEY (stateID) REFERENCES states(stateID)
+);
+
+/***********************************************************************/ 
+
 DROP TABLE IF EXISTS employees;
 CREATE TABLE employees (
   empid INT NOT NULL PRIMARY KEY,
@@ -32,15 +68,6 @@ CREATE TABLE payroll (
   FOREIGN KEY (empid) REFERENCES employees(empid)
 );
 
-/***********************************************************************/ 
-
-DROP TABLE IF EXISTS employee_job_titles ;
-CREATE TABLE employee_job_titles (
-  empid INT NOT NULL,
-  job_title_id INT NOT NULL,
-  FOREIGN KEY (empid) REFERENCES employees(empid),
-  FOREIGN KEY (job_title_id) REFERENCES job_titles(job_title_id)
-);
 
 /***********************************************************************/ 
 
@@ -52,13 +79,13 @@ CREATE TABLE job_titles (
 
 /***********************************************************************/ 
 
-DROP TABLE IF EXISTS employee_division;
-CREATE TABLE employee_division (
-  empid int NOT NULL,
-  divID int NOT NULL,
+DROP TABLE IF EXISTS employee_job_titles ;
+CREATE TABLE employee_job_titles (
+  empid INT NOT NULL,
+  job_title_id INT NOT NULL,
   FOREIGN KEY (empid) REFERENCES employees(empid),
-  FOREIGN KEY (divId) REFERENCES division(divID)
-) COMMENT='links employee to a division';
+  FOREIGN KEY (job_title_id) REFERENCES job_titles(job_title_id)
+);
 
 /***********************************************************************/
 
@@ -76,33 +103,12 @@ CREATE TABLE division (
 
 /***********************************************************************/ 
 
-DROP TABLE IF EXISTS addresses;
-CREATE TABLE addresses (
-  addressID INT NOT NULL PRIMARY KEY,
-  street varchar(50) NOT NULL,
-  cityID INT NOT NULL,
-  stateID INT NOT NULL,
-  zip VARCHAR(10) NOT NULL,
-  DOB varchar(10) NOT NULL,
-  phone varchar(10) NOT NULL,
-  emergencyContactName varchar(100) NOT NULL,
-  emergencyContactPhone varchar(10) NOT NULL,
-  FOREIGN KEY (cityID) REFERENCES cities(cityID)
-  FOREIGN KEY (stateID) REFERENCES states(stateID)
-);
+DROP TABLE IF EXISTS employee_division;
+CREATE TABLE employee_division (
+  empid int NOT NULL,
+  divID int NOT NULL,
+  FOREIGN KEY (empid) REFERENCES employees(empid),
+  FOREIGN KEY (divId) REFERENCES division(divID)
+) COMMENT='links employee to a division';
 
-/***********************************************************************/ 
 
-DROP TABLE IF EXISTS cities;
-CREATE TABLE cities (
-  cityID varchar(50) NOT NULL PRIMARY KEY,
-  cityName varchar(25) NOT NULL
-);
-
-/***********************************************************************/ 
-
-DROP TABLE IF EXISTS states;
-CREATE TABLE states (
-  stateID varchar(50) NOT NULL PRIMARY KEY,
-  stateAbbr varchar(2) NOT NULL
-);
