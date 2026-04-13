@@ -2,10 +2,9 @@
 CREATE DATABASE projectEmployeeData;
 USE projectEmployeeData;
 
-
 DROP TABLE IF EXISTS employees;
 CREATE TABLE employees (
-  empid INT NOT NULL,
+  empid INT NOT NULL PRIMARY KEY,
   Fname VARCHAR(65) NOT NULL,
   Lname VARCHAR(65) NOT NULL,
   email VARCHAR(65) NOT NULL,
@@ -13,7 +12,8 @@ CREATE TABLE employees (
   Salary DECIMAL(10,2) NOT NULL,
   SSN VARCHAR(12),
   addressID INT NOT NULL,
-  PRIMARY KEY (empid)
+  PRIMARY KEY (addressID)
+  FOREIGN KEY (addressID) REFERENCES addresses(addressID)
 );
 
 /***********************************************************************/
@@ -29,7 +29,9 @@ CREATE TABLE payroll (
   state_tax DECIMAL(7,2),
   retire_401k DECIMAL(7,2),
   health_care DECIMAL(7,2),
-  empid INT
+  empid INT,
+  PRIMARY KEY(empid)
+  FOREIGN KEY (empid) REFERENCES employees(empid)
 );
 
 /***********************************************************************/ 
@@ -55,6 +57,7 @@ CREATE TABLE employee_division (
   empid int NOT NULL,
   div_ID int NOT NULL,
   PRIMARY KEY (empid)
+  FOREIGN KEY (empid) REFERENCES employees(empid)
 ) COMMENT='links employee to a division';
 
 /***********************************************************************/
@@ -72,3 +75,32 @@ CREATE TABLE division (
 ) COMMENT='company divisions';
 
 /***********************************************************************/ 
+
+DROP TABLE IF EXISTS addresses;
+CREATE TABLE adresses (
+  addressID varchar(10) NOT NULL PRIMARY KEY,
+  street varchar(50) NOT NULL,
+  cityID varchar(50) NOT NULL,
+  stateID varchar(50) NOT NULL,
+  zip VARCHAR(10) NOT NULL,
+  DOB varchar(10) NOT NULL,
+  phone varchar(10) NOT NULL,
+  emergencyContactName varchar(100) NOT NULL,
+  emergencyContactPhone varchar(10) NOT NULL,
+);
+
+/***********************************************************************/ 
+
+DROP TABLE IF EXISTS cities;
+CREATE TABLE cities (
+  cityID varchar(50) NOT NULL,
+  cityName varchar(25) NOT NULL
+);
+
+/***********************************************************************/ 
+
+DROP TABLE IF EXISTS states;
+CREATE TABLE states (
+  stateID varchar(50) NOT NULL,
+  stateAbbr varchar(2) NOT NULL
+);
