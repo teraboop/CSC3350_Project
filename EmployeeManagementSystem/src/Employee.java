@@ -9,17 +9,26 @@ public class Employee {
         public boolean isAdmin() {
             return isAdmin;
         }
+        @Override
+        public String toString() {
+            return this.name();
+        }
+
     };
     private final Classify classify;
     private int empID;
     private String employmentDate;
     private String address;
     public Employee(int roleID){
-        this.classify = (roleID == 1) ? Classify.Employee : Classify.Admin;
+        this.classify = (roleID == 0) ? Classify.Employee : Classify.Admin;
     }
 
     public int getEmpID(){
         return empID;
+    }
+
+    public void setEmpID(int empID){
+        this.empID = empID;
     }
     public String getEmploymentDate(){
         return employmentDate;

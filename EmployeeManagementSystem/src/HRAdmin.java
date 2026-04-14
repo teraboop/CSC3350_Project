@@ -1,7 +1,6 @@
 public class HRAdmin extends Employee {
     public HRAdmin(){
-        super(/* empID, employmentDate, address, classify*/);
-
+        super(1);
     }
 
     public void updateSalary(){
