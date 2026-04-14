@@ -111,4 +111,19 @@ CREATE TABLE employee_division (
   FOREIGN KEY (divId) REFERENCES division(divID)
 ) COMMENT='links employee to a division';
 
+/***********************************************************************/
+/* Edward: I want to add this table to track employee credential/authorization information. */
+
+CREATE TABLE credentials (
+  empid INT NOT NULL PRIMARY KEY,
+  username VARCHAR(65) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  password_salt VARCHAR(255) NOT NULL,
+  classification ENUM('Employee', 'Admin') NOT NULL,
+  last_login DATETIME,
+  failed_attempts INT DEFAULT 0,
+  locked_until DATETIME,
+  FOREIGN KEY (empid) REFERENCES employees(empid)
+);
+
 
