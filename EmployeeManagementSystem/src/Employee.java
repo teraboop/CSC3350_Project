@@ -1,4 +1,4 @@
-public class Employee implements EmployeeI {
+public class Employee {
     private String classify;
     private int empID;
     private String employmentDate;

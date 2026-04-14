@@ -1,4 +1,4 @@
-public class ReportHR implements ReportI{
+public class ReportHR extends ReportEmp{
     public String getPaymentInfo(){
         return "";
     }

@@ -1,4 +1,4 @@
-public class ReportEmp implements ReportI {
+public class ReportEmp {
     public String getPaymentInfo(){
         return "";
     }
