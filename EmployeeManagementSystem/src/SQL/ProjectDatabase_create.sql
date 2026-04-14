@@ -114,6 +114,7 @@ CREATE TABLE employee_division (
 /***********************************************************************/
 /* Edward: I want to add this table to track employee credential/authorization information. */
 
+DROP TABLE IF EXISTS credentials;
 CREATE TABLE credentials (
   empid INT NOT NULL PRIMARY KEY,
   username VARCHAR(65) NOT NULL UNIQUE,
