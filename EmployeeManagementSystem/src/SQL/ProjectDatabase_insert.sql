@@ -1,6 +1,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 
-INSERT INTO employees (empid, Fname, Lname, email, HireDate, Salary, SSN, addressID)
+INSERT INTO employees (emp_id, first_name, last_name, email, hire_date, salary, ssn, address_id)
 VALUES 
 (1,'Snoopy', 'Beagle', 		'Snoopy@example.com', 	'2022-08-01', 45000.00, '111-11-1111', 1),
 (2,'Charlie', 'Brown', 		'Charlie@example.com', 	'2022-07-01', 48000.00, '111-22-1111', 1),
@@ -19,7 +19,7 @@ VALUES
 (15,'Marvin', 'Martian', 	'Marvin@example.com', 	'1937-05-01', 28000.00, '777-11-1111', 9);
 
 
-INSERT INTO job_titles (job_title_id,job_title)
+INSERT INTO job_titles (job_title_id, job_title)
 VALUES 
 (100,'software manager'),
 (101,'software architect'),
@@ -33,8 +33,8 @@ VALUES
 (902,'Chief Info. Officer');
 
 
-/* EMPLOYEE ID=1 */
-INSERT INTO payroll (payID, pay_date, empid, earnings, fed_tax, fed_med, fed_SS, state_tax, retire_401k, health_care)
+/* EMPLOYEE id=1 */
+INSERT INTO payroll (pay_id, pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
 SELECT 
 	1,
 	'2026-01-31', 
@@ -47,9 +47,9 @@ SELECT
 	(salary/52.0)*0.004,
 	(salary/52.0)*0.031
 FROM employees
-WHERE empID=1;
+WHERE emp_id=1;
 
-INSERT INTO payroll (payID, pay_date, empid, earnings, fed_tax, fed_med, fed_SS, state_tax, retire_401k, health_care)
+INSERT INTO payroll (pay_id, pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
 SELECT 
 	2,
 	'2025-12-31', 
@@ -62,11 +62,11 @@ SELECT
 	(salary/52.0)*0.004,
 	(salary/52.0)*0.031 
 FROM employees
-WHERE empID=2;
+WHERE emp_id=2;
 
 
-/* EMPLOYEE ID=2 */
-INSERT INTO payroll (payID, pay_date, empid, earnings, fed_tax, fed_med, fed_SS, state_tax, retire_401k, health_care)
+/* EMPLOYEE id=2 */
+INSERT INTO payroll (pay_id, pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
 SELECT 
 	3,
 	'2026-01-31', 
@@ -79,9 +79,9 @@ SELECT
 	(salary/52.0)*0.004,
 	(salary/52.0)*0.031
 FROM employees
-WHERE empID=2;
+WHERE emp_id=2;
 
-INSERT INTO payroll (payID, pay_date, empid, earnings, fed_tax, fed_med, fed_SS, state_tax, retire_401k, health_care)
+INSERT INTO payroll (pay_id, pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
 SELECT 
 	4,
 	'2025-12-31', 
@@ -96,8 +96,8 @@ SELECT
 FROM employees;
 
 
-/* EMPLOYEE ID=3 */
-INSERT INTO payroll (payID, pay_date, empid, earnings, fed_tax, fed_med, fed_SS, state_tax, retire_401k, health_care)
+/* EMPLOYEE id=3 */
+INSERT INTO payroll (pay_id, pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
 SELECT 
 	5,
 	'2026-01-31', 
@@ -110,9 +110,9 @@ SELECT
 	(salary/52.0)*0.004,
 	(salary/52.0)*0.031
 FROM employees
-WHERE empID=3;
+WHERE emp_id=3;
 
-INSERT INTO payroll (payID, pay_date, empid, earnings, fed_tax, fed_med, fed_SS, state_tax, retire_401k, health_care)
+INSERT INTO payroll (pay_id, pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
 SELECT 
 	6,
 	'2025-12-31', 
@@ -125,11 +125,11 @@ SELECT
 	(salary/52.0)*0.004,
 	(salary/52.0)*0.031 
 FROM employees
-WHERE empID=3;
+WHERE emp_id=3;
 
 
-/* EMPLOYEE ID=4 */
-INSERT INTO payroll (payID, pay_date, empid, earnings, fed_tax, fed_med, fed_SS, state_tax, retire_401k, health_care)
+/* EMPLOYEE id=4 */
+INSERT INTO payroll (pay_id, pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
 SELECT 
 	7,
 	'2026-01-31', 
@@ -142,9 +142,9 @@ SELECT
 	(salary/52.0)*0.004,
 	(salary/52.0)*0.031
 FROM employees
-WHERE empID=4;
+WHERE emp_id=4;
 
-INSERT INTO payroll (payID, pay_date, empid, earnings, fed_tax, fed_med, fed_SS, state_tax, retire_401k, health_care)
+INSERT INTO payroll (pay_id, pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
 SELECT 
 	8,
 	'2025-12-31', 
@@ -157,11 +157,11 @@ SELECT
 	(salary/52.0)*0.004,
 	(salary/52.0)*0.031 
 FROM employees
-WHERE empID=5;
+WHERE emp_id=5;
 
 
-/* EMPLOYEE ID=5 */
-INSERT INTO payroll (payID, pay_date, empid, earnings, fed_tax, fed_med, fed_SS, state_tax, retire_401k, health_care)
+/* EMPLOYEE id=5 */
+INSERT INTO payroll (pay_id, pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
 SELECT 
 	9,
 	'2026-01-31', 
@@ -174,9 +174,9 @@ SELECT
 	(salary/52.0)*0.004,
 	(salary/52.0)*0.031
 FROM employees
-WHERE empID=5;
+WHERE emp_id=5;
 
-INSERT INTO payroll (payID, pay_date, empid, earnings, fed_tax, fed_med, fed_SS, state_tax, retire_401k, health_care)
+INSERT INTO payroll (pay_id, pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
 SELECT 
 	10,
 	'2025-12-31', 
@@ -189,10 +189,10 @@ SELECT
 	(salary/52.0)*0.004,
 	(salary/52.0)*0.031 
 FROM employees
-WHERE empID=5;
+WHERE emp_id=5;
 
-/* EMPLOYEE ID=6 */
-INSERT INTO payroll (payID, pay_date, empid, earnings, fed_tax, fed_med, fed_SS, state_tax, retire_401k, health_care)
+/* EMPLOYEE id=6 */
+INSERT INTO payroll (pay_id, pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
 SELECT 
 	11,
 	'2026-01-31', 
@@ -205,9 +205,9 @@ SELECT
 	(salary/52.0)*0.004,
 	(salary/52.0)*0.031
 FROM employees
-WHERE empID=6;
+WHERE emp_id=6;
 
-INSERT INTO payroll (payID, pay_date, empid, earnings, fed_tax, fed_med, fed_SS, state_tax, retire_401k, health_care)
+INSERT INTO payroll (pay_id, pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
 SELECT 
 	12,
 	'2025-12-31', 
@@ -220,27 +220,27 @@ SELECT
 	(salary/52.0)*0.004,
 	(salary/52.0)*0.031 
 FROM employees
-WHERE empID=6;
+WHERE emp_id=6;
 
 
-/* You can copy the above two INSERT statements for payID=13 
-     and empid=7, then payID=14, and empid=7, payID=15 ... etc.
+/* You can copy the above two INSERT statements for pay_id=13 
+     and emp_id=7, then pay_id=14, and emp_id=7, pay_id=15 ... etc.
 */
 
-INSERT INTO employee_division (empid, div_ID)
+INSERT INTO employee_division (emp_id, div_id)
 VALUES(1,999),
       (2,999),
       (3,999),
       (7,1),
       (10,1);
 
-INSERT INTO division (ID, Name, city, addressLine1, addressLine2, state, country, postalCode) 
+INSERT INTO division (id, name, city, address_line1, address_line2, state, country, postal_code) 
 VALUES(1,'Technology Engineering', 'Atlanta', '200 17th Street NW', '', 'GA', 'USA', '30363'),
 		(2,'Marketing', 'Atlanta', '200 17th Street NW', '', 'GA', 'USA', '30363'),
 		(3,'Human Resources','New York', '45 West 57th Street', '', 'NY', 'USA', '00034'),
 		(999,'HQ','New York', '45 West 57th Street', '', 'NY', 'USA', '00034');
 			
-INSERT INTO employee_job_titles (empid, job_title_id)
+INSERT INTO employee_job_titles (emp_id, job_title_id)
 VALUES(1,902),
 (2,900),
 (3,901),
@@ -256,6 +256,3 @@ VALUES(1,902),
 (13,202),
 (14,103),
 (15,103);
-
-
-
