@@ -61,24 +61,26 @@ public class Authorization {
     }
 
     private Employee fetchEmployee(int empID) throws SQLException {
-        Connection conn = dbConnector.getConnection();
-        String query = "SELECT e.empid, e.Fname, e.Lname, c.classification FROM employees e " +
-                       "JOIN credentials c ON e.empid = c.empid WHERE e.empid = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, empID);
-        
-        ResultSet rs = stmt.executeQuery();
-        
-        if (rs.next()) {
-            String classification = rs.getString("classification");
-            // Convert ENUM string to roleID (Admin = 1, Employee = 0)
-            int roleID = classification.equals("Admin") ? 1 : 0;
-            Employee emp = new Employee(roleID);
-            emp.setEmpID(empID);
-            return emp;
+        try(Connection conn = dbConnector.getConnection()){
+            String query = "SELECT e.empid, e.Fname, e.Lname, c.classification FROM employees e " +
+                        "JOIN credentials c ON e.empid = c.empid WHERE e.empid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, empID);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                String classification = rs.getString("classification");
+                // Convert ENUM string to roleID (Admin = 1, Employee = 0)
+                int roleID = classification.equals("Admin") ? 1 : 0;
+                Employee emp = new Employee(roleID,empID);
+                return emp;
+            }
         }
-    
-        return null;
+        catch(Exception e){
+            return null;
+        }
+        return null; 
     }
 
     public Employee logout() {
@@ -86,7 +88,6 @@ public class Authorization {
         if (currentUser != null) {
             System.out.println("User with empID " + currentUser.getEmpID() + " logged out.");
             currentUser = null;
-            dbConnector.closeConnection();
         } else {
             System.out.println("No user is currently logged in.");
         }

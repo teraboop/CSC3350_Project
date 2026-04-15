@@ -19,8 +19,9 @@ public class Employee {
     private int empID;
     private String employmentDate;
     private String address;
-    public Employee(int roleID){
+    public Employee(int roleID, int ID){
         this.classify = (roleID == 0) ? Classify.Employee : Classify.Admin;
+        empID = ID;
     }
 
     public int getEmpID(){

@@ -22,6 +22,7 @@
         "EmployeeManagementSystem/lib/javafx-sdk-26/lib/javafx-swt.jar",
         "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jdk.jsobject.jar",
         "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jfx.incubator.input.jar",
-        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jfx.incubator.richtext.jar"
+        "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jfx.incubator.richtext.jar",
+        "EmployeeManagementSystem/lib/mysql-connector-j-9.1.0.jar"
     ]
 }
