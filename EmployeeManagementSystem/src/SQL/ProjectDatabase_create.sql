@@ -1,71 +1,72 @@
 
-CREATE DATABASE projectEmployeeData;
-USE projectEmployeeData;
+DROP DATABASE IF EXISTS project_employee_data;
+CREATE DATABASE project_employee_data;
+USE project_employee_data;
 
 
 /***********************************************************************/ 
 
 DROP TABLE IF EXISTS cities;
 CREATE TABLE cities (
-  cityID INT NOT NULL PRIMARY KEY,
-  cityName varchar(25) NOT NULL
+  city_id INT NOT NULL PRIMARY KEY,
+  city_name varchar(25) NOT NULL
 );
 
 /***********************************************************************/ 
 
 DROP TABLE IF EXISTS states;
 CREATE TABLE states (
-  stateID INT NOT NULL PRIMARY KEY,
-  stateAbbr varchar(2) NOT NULL
+  state_id INT NOT NULL PRIMARY KEY,
+  state_abbr varchar(2) NOT NULL
 );
 
 /***********************************************************************/ 
 
 DROP TABLE IF EXISTS addresses;
 CREATE TABLE addresses (
-  addressID INT NOT NULL PRIMARY KEY,
+  address_id INT NOT NULL PRIMARY KEY,
   street varchar(50) NOT NULL,
-  cityID INT NOT NULL,
-  stateID INT NOT NULL,
+  city_id INT NOT NULL,
+  state_id INT NOT NULL,
   zip VARCHAR(10) NOT NULL,
-  DOB varchar(10) NOT NULL,
+  dob varchar(10) NOT NULL,
   phone varchar(10) NOT NULL,
-  emergencyContactName varchar(100) NOT NULL,
-  emergencyContactPhone varchar(10) NOT NULL,
-  FOREIGN KEY (cityID) REFERENCES cities(cityID),
-  FOREIGN KEY (stateID) REFERENCES states(stateID)
+  emergency_contact_name varchar(100) NOT NULL,
+  emergency_contact_phone varchar(10) NOT NULL,
+  FOREIGN KEY (city_id) REFERENCES cities(city_id),
+  FOREIGN KEY (state_id) REFERENCES states(state_id)
 );
 
 /***********************************************************************/ 
 
 DROP TABLE IF EXISTS employees;
 CREATE TABLE employees (
-  empid INT NOT NULL PRIMARY KEY,
-  Fname VARCHAR(65) NOT NULL,
-  Lname VARCHAR(65) NOT NULL,
+  emp_id INT NOT NULL PRIMARY KEY,
+  first_name VARCHAR(65) NOT NULL,
+  last_name VARCHAR(65) NOT NULL,
   email VARCHAR(65) NOT NULL,
-  HireDate DATE,
-  Salary DECIMAL(10,2) NOT NULL,
-  SSN VARCHAR(12),
-  addressID INT NOT NULL,
-  FOREIGN KEY (addressID) REFERENCES addresses(addressID)
+  hire_date DATE,
+  salary DECIMAL(10,2) NOT NULL,
+  ssn VARCHAR(12),
+  address_id INT NOT NULL,
+  FOREIGN KEY (address_id) REFERENCES addresses(address_id)
 );
 
 /***********************************************************************/
 
 DROP TABLE IF EXISTS payroll;
 CREATE TABLE payroll (
-  payID INT,
+  pay_id INT,
   pay_date DATE,
   earnings DECIMAL(8,2),
   fed_tax DECIMAL(7,2),
   fed_med DECIMAL(7,2),
-  fed_SS DECIMAL(7,2),
+  fed_ss DECIMAL(7,2),
   state_tax DECIMAL(7,2),
-  retire_401k DECIMAL(7,2),
+  retirement_401k DECIMAL(7,2),
   health_care DECIMAL(7,2),
-  empid INT,
-  FOREIGN KEY (empid) REFERENCES employees(empid)
+  emp_id INT,
+  FOREIGN KEY (emp_id) REFERENCES employees(emp_id)
 );
 
 
@@ -81,9 +82,9 @@ CREATE TABLE job_titles (
 
 DROP TABLE IF EXISTS employee_job_titles ;
 CREATE TABLE employee_job_titles (
-  empid INT NOT NULL,
+  emp_id INT NOT NULL,
   job_title_id INT NOT NULL,
-  FOREIGN KEY (empid) REFERENCES employees(empid),
+  FOREIGN KEY (emp_id) REFERENCES employees(emp_id),
   FOREIGN KEY (job_title_id) REFERENCES job_titles(job_title_id)
 );
 
@@ -91,24 +92,24 @@ CREATE TABLE employee_job_titles (
 
 DROP TABLE IF EXISTS division;
 CREATE TABLE division (
-  divID int NOT NULL PRIMARY KEY,
-  Name varchar(100) DEFAULT NULL,
+  div_id int NOT NULL PRIMARY KEY,
+  name varchar(100) DEFAULT NULL,
   city varchar(50) NOT NULL,
-  addressLine1 varchar(50) NOT NULL,
-  addressLine2 varchar(50) DEFAULT NULL,
+  address_line1 varchar(50) NOT NULL,
+  address_line2 varchar(50) DEFAULT NULL,
   state varchar(50) DEFAULT NULL,
   country varchar(50) NOT NULL,
-  postalCode varchar(15) NOT NULL
+  postal_code varchar(15) NOT NULL
 ) COMMENT='company divisions';
 
 /***********************************************************************/ 
 
 DROP TABLE IF EXISTS employee_division;
 CREATE TABLE employee_division (
-  empid int NOT NULL,
-  divID int NOT NULL,
-  FOREIGN KEY (empid) REFERENCES employees(empid),
-  FOREIGN KEY (divId) REFERENCES division(divID)
+  emp_id int NOT NULL,
+  div_id int NOT NULL,
+  FOREIGN KEY (emp_id) REFERENCES employees(emp_id),
+  FOREIGN KEY (div_id) REFERENCES division(div_id)
 ) COMMENT='links employee to a division';
 
 /***********************************************************************/
@@ -116,7 +117,7 @@ CREATE TABLE employee_division (
 
 DROP TABLE IF EXISTS credentials;
 CREATE TABLE credentials (
-  empid INT NOT NULL PRIMARY KEY,
+  emp_id INT NOT NULL PRIMARY KEY,
   username VARCHAR(65) NOT NULL UNIQUE,
   password_hash VARCHAR(255) NOT NULL,
   password_salt VARCHAR(255) NOT NULL,
@@ -124,7 +125,5 @@ CREATE TABLE credentials (
   last_login DATETIME,
   failed_attempts INT DEFAULT 0,
   locked_until DATETIME,
-  FOREIGN KEY (empid) REFERENCES employees(empid)
+  FOREIGN KEY (emp_id) REFERENCES employees(emp_id)
 );
-
-
