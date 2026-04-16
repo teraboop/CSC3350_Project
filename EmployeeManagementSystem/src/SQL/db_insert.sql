@@ -234,7 +234,7 @@ VALUES(1,999),
       (7,1),
       (10,1);
 
-INSERT INTO division (id, name, city, address_line1, address_line2, state, country, postal_code) 
+INSERT INTO division (div_id, name, city, address_line1, address_line2, state, country, postal_code) 
 VALUES(1,'Technology Engineering', 'Atlanta', '200 17th Street NW', '', 'GA', 'USA', '30363'),
 		(2,'Marketing', 'Atlanta', '200 17th Street NW', '', 'GA', 'USA', '30363'),
 		(3,'Human Resources','New York', '45 West 57th Street', '', 'NY', 'USA', '00034'),
