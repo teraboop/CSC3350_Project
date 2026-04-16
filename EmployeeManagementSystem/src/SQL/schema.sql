@@ -5,6 +5,14 @@ USE project_employee_data;
 
 /***********************************************************************/ 
 
+DROP TABLE IF EXISTS states;
+CREATE TABLE states (
+  state_id INT auto_increment PRIMARY KEY,
+  state_abbr varchar(2) NOT NULL
+);
+
+/***********************************************************************/ 
+
 DROP TABLE IF EXISTS cities;
 CREATE TABLE cities (
   city_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -12,14 +20,6 @@ CREATE TABLE cities (
   state_id INT NOT NULL,
   FOREIGN KEY (state_id) REFERENCES states(state_id),
   UNIQUE (city_name, state_id)
-);
-
-/***********************************************************************/ 
-
-DROP TABLE IF EXISTS states;
-CREATE TABLE states (
-  state_id INT auto_increment PRIMARY KEY,
-  state_abbr varchar(2) NOT NULL
 );
 
 /***********************************************************************/ 

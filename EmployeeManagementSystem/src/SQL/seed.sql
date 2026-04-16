@@ -51,11 +51,11 @@ insert into states (state_abbr)
 		('WI'),
 		('WY');	
 
-INSERT INTO cities (city_name)
+INSERT INTO cities (city_name, state_id)
 	VALUES
-		('Saint Paul'),
-		('Coolsville'),
-		('Acme Acres');
+		('Saint Paul', 23),
+		('Coolsville', 35),
+		('Acme Acres', 1);
 
 INSERT INTO addresses (street, city_id, state_id, zip, dob, phone, emergency_contact_name, emergency_contact_phone)
 	VALUES
