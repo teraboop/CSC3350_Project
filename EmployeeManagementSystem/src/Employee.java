@@ -16,12 +16,16 @@ public class Employee {
 
     };
     private final Classify classify;
+    private String Fname;
+    private String Lname;
     private int empID;
     private String employmentDate;
     private String address;
-    public Employee(int roleID, int ID){
+    public Employee(int roleID, int ID, String Fname, String Lname){
         this.classify = (roleID == 0) ? Classify.Employee : Classify.Admin;
         empID = ID;
+        this.Fname = Fname;
+        this.Lname = Lname;
     }
 
     public int getEmpID(){

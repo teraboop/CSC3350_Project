@@ -71,10 +71,15 @@ public class Authorization {
             
             if (rs.next()) {
                 String classification = rs.getString("classification");
+                String Fname = rs.getString("Fname");
+                String Lname = rs.getString("Lname");
                 // Convert ENUM string to roleID (Admin = 1, Employee = 0)
                 int roleID = classification.equals("Admin") ? 1 : 0;
-                Employee emp = new Employee(roleID,empID);
-                return emp;
+                if (roleID == 1) {
+                    return new HRAdmin(roleID, empID, Fname, Lname);
+                } else {
+                    return new Employee(roleID, empID, Fname, Lname);
+                }
             }
         }
         catch(Exception e){
