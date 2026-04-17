@@ -8,7 +8,7 @@ USE project_employee_data;
 DROP TABLE IF EXISTS states;
 CREATE TABLE states (
   state_id INT auto_increment PRIMARY KEY,
-  state_abbr varchar(2) NOT NULL
+  state_abbr varchar(2) NOT null unique
 );
 
 /***********************************************************************/ 
@@ -29,14 +29,9 @@ CREATE TABLE addresses (
   address_id INT AUTO_INCREMENT PRIMARY KEY,
   street varchar(50) NOT NULL,
   city_id INT NOT NULL,
-  state_id INT NOT NULL,
   zip VARCHAR(10) NOT NULL,
-  dob DATE NOT NULL,
-  phone varchar(15) NOT NULL,
-  emergency_contact_name varchar(100) NOT NULL,
-  emergency_contact_phone varchar(15) NOT NULL,
-  FOREIGN KEY (city_id) REFERENCES cities(city_id),
-  FOREIGN KEY (state_id) REFERENCES states(state_id)
+  country varchar(50) NOT NULL,
+  FOREIGN KEY (city_id) REFERENCES cities(city_id)
 );
 
 /***********************************************************************/ 
@@ -51,6 +46,10 @@ CREATE TABLE employees (
   salary DECIMAL(10,2) NOT NULL,
   ssn VARCHAR(12) UNIQUE,
   address_id INT NOT NULL,
+  dob DATE NOT NULL,
+  phone varchar(15) NOT NULL,
+  emergency_contact_name varchar(100) NOT NULL,
+  emergency_contact_phone varchar(15) NOT NULL,
   FOREIGN KEY (address_id) REFERENCES addresses(address_id)
 );
 
@@ -93,16 +92,12 @@ CREATE TABLE employee_job_titles (
 
 /***********************************************************************/
 
-DROP TABLE IF EXISTS division;
-CREATE TABLE division (
+DROP TABLE IF EXISTS divisions;
+CREATE TABLE divisions (
   div_id int auto_increment PRIMARY KEY,
-  name varchar(100) DEFAULT NULL,
-  city varchar(50) NOT NULL,
-  address_line1 varchar(50) NOT NULL,
-  address_line2 varchar(50) DEFAULT NULL,
-  state varchar(50) DEFAULT NULL,
-  country varchar(50) NOT NULL,
-  postal_code varchar(15) NOT NULL
+  div_name varchar(100) DEFAULT NULL,
+  address_id INT not NULL,
+  foreign key (address_id) references addresses(address_id)
 ) COMMENT='company divisions';
 
 /***********************************************************************/ 
@@ -113,7 +108,7 @@ CREATE TABLE employee_division (
   div_id int NOT NULL,
   PRIMARY KEY (emp_id, div_id),
   FOREIGN KEY (emp_id) REFERENCES employees(emp_id),
-  FOREIGN KEY (div_id) REFERENCES division(div_id)
+  FOREIGN KEY (div_id) REFERENCES divisions(div_id)
 ) COMMENT='links employee to a division';
 
 /***********************************************************************/

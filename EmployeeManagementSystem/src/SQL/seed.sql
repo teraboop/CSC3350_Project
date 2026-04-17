@@ -53,46 +53,38 @@ insert into states (state_abbr)
 
 INSERT INTO cities (city_name, state_id)
 	VALUES
-		('Saint Paul', 23),
-		('Coolsville', 35),
-		('Acme Acres', 1);
+		('Saint Paul', (SELECT state_id FROM states WHERE state_abbr = 'MN')),
+		('Coolsville', (SELECT state_id FROM states WHERE state_abbr = 'OH')),
+		('Acme Acres', (SELECT state_id FROM states WHERE state_abbr = 'AL')),
+		('Atlanta', (SELECT state_id FROM states WHERE state_abbr = 'GA')),
+		('New York', (SELECT state_id FROM states WHERE state_abbr = 'NY'));
 
-INSERT INTO addresses (street, city_id, state_id, zip, dob, phone, emergency_contact_name, emergency_contact_phone)
+INSERT INTO addresses (street, city_id, zip, country)
 	VALUES
-		('Peanut Street', 1, 23, '55101', '1950-10-02', '111-111-1111', 'Charlie Brown', '111-111-1112'),
-		('Peanut Street', 1, 23, '55101', '1950-10-02', '111-111-1112', 'Snoopy Beagle', '111-111-1111'),
-		('Peanut Street', 1, 23, '55101', '1950-10-02', '111-111-1113', 'Snoopy Beagle', '111-111-1111'),
-		('Peanut Street', 1, 23, '55101', '1950-10-02', '111-111-1114', 'Snoopy Beagle', '111-111-1111'),
-		('Peanut Street', 1, 23, '55101', '1950-10-02', '111-111-1115', 'Snoopy Beagle', '111-111-1111'),
-		('Peanut Street', 1, 23, '55101', '1950-10-02', '111-111-1116', 'Snoopy Beagle', '111-111-1111'),
-		('Cool Street', 2, 35, '45723', '1969-09-13', '111-111-1117', 'Shaggy Rodgers', '111-111-1118'),
-		('Cool Street', 2, 35, '45723', '1969-09-13', '111-111-1118', 'Scooby Doo', '111-111-1117'),
-		('Cool Street', 2, 35, '45723', '1969-09-13', '111-111-1119', 'Scooby Doo', '111-111-1117'),
-		('Cool Street', 2, 35, '45723', '1969-09-13', '111-111-1120', 'Scooby Doo', '111-111-1117'),
-		('Toon Street', 3, 1, '12345', '1950-01-01', '111-111-1121', 'Daffy Duck', '111-111-1118'),
-		('Toon Street', 3, 1, '12345', '1950-01-01', '111-111-1121', 'Bugs Bunny', '111-111-1119'),
-		('Toon Street', 3, 1, '12345', '1950-01-01', '111-111-1121', 'Bugs Bunny', '111-111-1119'),
-		('Toon Street', 3, 1, '12345', '1950-01-01', '111-111-1121', 'Bugs Bunny', '111-111-1119'),
-		('Toon Street', 3, 1, '12345', '1950-01-01', '111-111-1121', 'Bugs Bunny', '111-111-1119');
+		('Peanut Street', (SELECT city_id FROM cities WHERE city_name = 'Saint Paul'), '55101', 'USA'),
+		('Cool Street', (SELECT city_id FROM cities WHERE city_name = 'Coolsville'), '45723', 'USA'),
+		('Toon Street', (SELECT city_id FROM cities WHERE city_name = 'Acme Acres'), '12345', 'USA'),
+		('200 17th Street NW', (SELECT city_id FROM cities WHERE city_name = 'Atlanta'), '30363', 'USA'),
+		('45 West 57th Street', (SELECT city_id FROM cities WHERE city_name = 'New York'), '00034', 'USA');
 		
 		
-INSERT INTO employees (first_name, last_name, email, hire_date, salary, ssn, address_id)
+INSERT INTO employees (first_name, last_name, email, hire_date, salary, ssn, address_id, dob, phone, emergency_contact_name, emergency_contact_phone)
 	VALUES 
-		('Snoopy', 'Beagle', 		'Snoopy@example.com', 	'2022-08-01', 45000.00, '111-11-1111', 1),
-		('Charlie', 'Brown', 		'Charlie@example.com', 	'2022-07-01', 48000.00, '111-22-1111', 1),
-		('Lucy', 'Doctor', 		'Lucy@example.com', 	'2022-07-03', 55000.00, '111-33-1111', 2),
-		('Pepermint', 'Patti', 	'Peppermint@example.com', '2022-08-02', 98000.00, '111-44-1111', 3),
-		('Linus', 'Blanket', 		'Linus@example.com', 	'2022-09-01', 43000.00, '111-55-1111', 1),
-		('PigPin', 'Dusty', 		'PigPin@example.com', 	'2022-10-01', 33000.00, '111-66-1111', 3),
-		('Scooby', 'Doo', 			'Scooby@example.com', 	'1973-07-03', 78000.00, '111-77-1111', 4),
-		('Shaggy', 'Rodgers', 		'Shaggy@example.com', 	'1973-07-11', 77000.00, '111-88-1111', 5),
-		('Velma', 'Dinkley', 		'Velma@example.com', 	'1973-07-21', 82000.00, '111-99-1111', 6),
-		('Daphne', 'Blake', 		'Daphne@example.com', 	'1973-07-30', 59000.00, '111-00-1111', 4),
-		('Bugs', 'Bunny', 		'Bugs@example.com', 	'1934-07-01', 18000.00, '222-11-1111', 5),
-		('Daffy', 'Duck', 		'Daffy@example.com', 	'1935-04-01', 16000.00, '333-11-1111', 2),
-		('Porky', 'Pig', 		'Porky@example.com', 	'1935-08-12', 16550.00, '444-11-1111', 7),
-		('Elmer', 'Fudd', 		'Elmer@example.com', 	'1934-08-01', 15500.00, '555-11-1111', 8),
-		('Marvin', 'Martian', 	'Marvin@example.com', 	'1937-05-01', 28000.00, '777-11-1111', 9);
+		('Snoopy', 'Beagle', 		'Snoopy@example.com', 	'2022-08-01', 45000.00, '111-11-1111', (SELECT address_id FROM addresses WHERE street = 'Peanut Street'), '1950-10-02', '111-111-1111', 'Charlie Brown', '111-111-1112'),
+		('Charlie', 'Brown', 		'Charlie@example.com', 	'2022-07-01', 48000.00, '111-22-1111', (SELECT address_id FROM addresses WHERE street = 'Peanut Street'), '1950-10-02', '111-111-1112', 'Snoopy Beagle', '111-111-1111'),
+		('Lucy', 'Doctor', 		'Lucy@example.com', 	'2022-07-03', 55000.00, '111-33-1111', (SELECT address_id FROM addresses WHERE street = 'Peanut Street'), '1950-10-02', '111-111-1113', 'Snoopy Beagle', '111-111-1111'),
+		('Pepermint', 'Patti', 	'Peppermint@example.com', '2022-08-02', 98000.00, '111-44-1111', (SELECT address_id FROM addresses WHERE street = 'Peanut Street'), '1950-10-02', '111-111-1114', 'Snoopy Beagle', '111-111-1111'),
+		('Linus', 'Blanket', 		'Linus@example.com', 	'2022-09-01', 43000.00, '111-55-1111', (SELECT address_id FROM addresses WHERE street = 'Peanut Street'), '1950-10-02', '111-111-1115', 'Snoopy Beagle', '111-111-1111'),
+		('PigPin', 'Dusty', 		'PigPin@example.com', 	'2022-10-01', 33000.00, '111-66-1111', (SELECT address_id FROM addresses WHERE street = 'Peanut Street'), '1950-10-02', '111-111-1116', 'Snoopy Beagle', '111-111-1111'),
+		('Scooby', 'Doo', 			'Scooby@example.com', 	'1973-07-03', 78000.00, '111-77-1111', (SELECT address_id FROM addresses WHERE street = 'Cool Street'), '1950-10-02', '111-111-1117', 'Shaggy Rodgers', '111-111-1118'),
+		('Shaggy', 'Rodgers', 		'Shaggy@example.com', 	'1973-07-11', 77000.00, '111-88-1111', (SELECT address_id FROM addresses WHERE street = 'Cool Street'), '1950-10-02', '111-111-1118', 'Scooby Doo', '111-111-1117'),
+		('Velma', 'Dinkley', 		'Velma@example.com', 	'1973-07-21', 82000.00, '111-99-1111', (SELECT address_id FROM addresses WHERE street = 'Cool Street'), '1969-09-13', '111-111-1119', 'Scooby Doo', '111-111-1117'),
+		('Daphne', 'Blake', 		'Daphne@example.com', 	'1973-07-30', 59000.00, '111-00-1111', (SELECT address_id FROM addresses WHERE street = 'Cool Street'), '1950-01-01', '111-111-1120', 'Scooby Doo', '111-111-1117'),
+		('Bugs', 'Bunny', 		'Bugs@example.com', 	'1934-07-01', 18000.00, '222-11-1111', (SELECT address_id FROM addresses WHERE street = 'Toon Street'), '1969-09-13', '111-111-1121', 'Daffy Duck', '111-111-1122'),
+		('Daffy', 'Duck', 		'Daffy@example.com', 	'1935-04-01', 16000.00, '333-11-1111', (SELECT address_id FROM addresses WHERE street = 'Toon Street'), '1950-01-01', '111-111-1122', 'Bugs Bunny', '111-111-1121'),
+		('Porky', 'Pig', 		'Porky@example.com', 	'1935-08-12', 16550.00, '444-11-1111', (SELECT address_id FROM addresses WHERE street = 'Toon Street'), '1950-01-01', '111-111-1123', 'Bugs Bunny', '111-111-1121'),
+		('Elmer', 'Fudd', 		'Elmer@example.com', 	'1934-08-01', 15500.00, '555-11-1111', (SELECT address_id FROM addresses WHERE street = 'Toon Street'), '1950-01-01', '111-111-1124', 'Bugs Bunny', '111-111-1121'),
+		('Marvin', 'Martian', 	'Marvin@example.com', 	'1937-05-01', 28000.00, '777-11-1111', (SELECT address_id FROM addresses WHERE street = 'Toon Street'), '1950-01-01', '111-111-1125', 'Bugs Bunny', '111-111-1121');
 
 
 INSERT INTO job_titles (job_title)
@@ -292,12 +284,12 @@ INSERT INTO payroll (pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state
      and emp_id=7, then pay_id=14, and emp_id=7, pay_id=15 ... etc.
 */
 
-INSERT INTO division (name, city, address_line1, address_line2, state, country, postal_code) 
+INSERT INTO divisions (div_name, address_id) 
 	VALUES
-		('Technology Engineering', 'Atlanta', '200 17th Street NW', '', 'GA', 'USA', '30363'),
-		('Marketing', 'Atlanta', '200 17th Street NW', '', 'GA', 'USA', '30363'),
-		('Human Resources','New York', '45 West 57th Street', '', 'NY', 'USA', '00034'),
-		('HQ','New York', '45 West 57th Street', '', 'NY', 'USA', '00034');
+		('Technology Engineering', (SELECT address_id FROM addresses WHERE street = '200 17th Street NW')),
+		('Marketing', (SELECT address_id FROM addresses WHERE street = '200 17th Street NW')),
+		('Human Resources', (SELECT address_id FROM addresses WHERE street = '45 West 57th Street')),
+		('Headquarters', (SELECT address_id FROM addresses WHERE street = '45 West 57th Street'));
 
 INSERT INTO employee_division (emp_id, div_id)
 	VALUES

@@ -1,14 +1,18 @@
 drop procedure if exists AddEmployee;
 drop procedure if exists AddAddress;
-drop procedure if exists AddCity;
-drop procedure if exists AddState;
-drop procedure if exists AddEmployeeFull;
+DROP PROCEDURE IF EXISTS AddCity;
+DROP PROCEDURE IF EXISTS AddState;
+DROP PROCEDURE IF EXISTS AddEmployeeFull;
 DROP PROCEDURE IF EXISTS AddCredentials;
 DROP PROCEDURE IF EXISTS AddPayroll;
 DROP PROCEDURE IF EXISTS AddJobTitle;
 DROP PROCEDURE IF EXISTS AddDivision;
 DROP PROCEDURE IF EXISTS AddEmployeeDivision;
 DROP PROCEDURE IF EXISTS AddEmployeeJobTitle;
+
+
+
+
 
 DELIMITER //
 
@@ -22,9 +26,13 @@ create procedure AddEmployee(
 	in v_last_name varchar(50),
 	in v_email varchar(100),
 	in v_hire_date date,
-	in v_salary DECIMAL(10, 2),
+	in v_salary DECIMAL(10,2),
 	in v_ssn varchar(12),
 	in v_address_id int,
+	in v_dob DATE,
+	in v_phone VARCHAR(15),
+	in v_emergency_contact_name VARCHAR(100),
+	in v_emergency_contact_phone VARCHAR(15),
 	OUT o_emp_id int
 )
 
@@ -37,7 +45,11 @@ BEGIN
 		hire_date,
 		salary,
 		ssn,
-		address_id
+		address_id,
+		dob,
+		phone,
+		emergency_contact_name,
+		emergency_contact_phone
 	)
 	
 	values(
@@ -47,7 +59,11 @@ BEGIN
 		v_hire_date,
 		v_salary,
 		v_ssn,
-		v_address_id
+		v_address_id,
+		v_dob,
+		v_phone,
+		v_emergency_contact_name,
+		v_emergency_contact_phone
 	);
 	
 	SET o_emp_id = LAST_INSERT_ID();
@@ -62,38 +78,16 @@ end //
 create procedure AddAddress(
 	in v_street varchar(50),
 	in v_city_id int,
-	in v_state_id int,
 	in v_zip varchar(10),
-	in v_dob date,
-	in v_phone varchar(15),
-	in v_emergency_contact_name varchar(100),
-	in v_emergency_contact_phone varchar(15),
+	in v_country varchar(50),
 	OUT o_address_id INT
 )
 
 BEGIN
 	
-	insert into addresses(
-		street,
-		city_id,
-		state_id,
-		zip,
-		dob,
-		phone,
-		emergency_contact_name,
-		emergency_contact_phone
-	)
+	insert into addresses(street, city_id, zip, country)
 	
-	values(	
-		v_street,
-		v_city_id,
-		v_state_id,
-		v_zip,
-		v_dob,
-		v_phone,
-		v_emergency_contact_name,
-		v_emergency_contact_phone
-	);
+	values(v_street, v_city_id, v_zip, v_country);
 	
 	SET o_address_id = LAST_INSERT_ID();
 	
@@ -111,12 +105,22 @@ create procedure AddCity(
 )
 
 BEGIN
+	-- Check if city already exists for that state
+	select city_id into o_city_id
+	from cities
+	where city_name = v_city_name
+		and state_id = v_state_id
+	limit 1;
 	
-	insert into cities(city_name, state_id)
+	-- If not found add it
+	if o_city_id is null then
 	
-	values(v_city_name, v_state_id);
+		insert into cities(city_name, state_id)
+		values(v_city_name, v_state_id);
 
-	SET o_city_id = LAST_INSERT_ID();
+		SET o_city_id = LAST_INSERT_ID();
+	
+	end if;
 	
 end //
 
@@ -132,11 +136,18 @@ create procedure AddState(
 
 BEGIN
 	
-	insert into states(state_abbr)
+	select state_id into o_state_id
+	from states
+	where state_abbr = v_state_abbr
+	limit 1;
 	
-	values(v_state_abbr);
+	if o_state_id is null then
+		insert into states(state_abbr)
+		values(v_state_abbr);
 	
-	SET o_state_id = LAST_INSERT_ID();
+		SET o_state_id = LAST_INSERT_ID();
+		
+		end if;
 
 end //
 
@@ -150,17 +161,20 @@ create procedure AddEmployeeFull(
 	in v_last_name varchar(50),
 	in v_email varchar(100),
 	in v_hire_date date,
-	in v_salary DECIMAL(10, 2),
+	in v_salary DECIMAL(10,2),
 	in v_ssn varchar(12),
+	in v_dob DATE,
+	in v_phone varchar(15),
+	in v_emergency_contact_name varchar(100),
+	in v_emergency_contact_phone varchar(15),
 	
 	in v_street varchar(50),
 	in v_city_name varchar(100),
 	IN v_state_abbr VARCHAR(2),
 	in v_zip varchar(10),
-	in v_dob date,
-	in v_phone varchar(15),
-	in v_emergency_contact_name varchar(100),
-	in v_emergency_contact_phone varchar(15)
+	in v_country varchar(50),
+	
+	out o_emp_id INT
 )
 
 BEGIN
@@ -168,28 +182,23 @@ BEGIN
 	DECLARE v_state_id INT;
 	DECLARE v_city_id INT;
 	DECLARE v_address_id INT;
-	DECLARE v_emp_id INT;
 
-	-- 1. Insert state
+	-- 1. Add state
 	CALL AddState(v_state_abbr, v_state_id);
 	
-	-- 2. Insert city
+	-- 2. Add city (depends on state)
 	CALL AddCity(v_city_name, v_state_id, v_city_id);
 	
-	-- 3. Insert address
+	-- 3. Add address (depends on city)
 	CALL AddAddress(
 		v_street,
 		v_city_id,
-		v_state_id,
 		v_zip,
-		v_dob,
-		v_phone,
-		v_emergency_contact_name,
-		v_emergency_contact_phone,
+		v_country,
 		v_address_id
 	);
 	
-	-- 4. Insert employee
+	-- 4. Add employee (depends on address)
 	CALL AddEmployee(
 		v_first_name,
 		v_last_name,
@@ -198,7 +207,11 @@ BEGIN
 		v_salary,
 		v_ssn,
 		v_address_id,
-		v_emp_id
+		v_dob,
+		v_phone,
+		v_emergency_contact_name,
+		v_emergency_contact_phone,
+		o_emp_id
 	);
 	
 end //
@@ -207,7 +220,6 @@ end //
 -- PROCEDURE: AddCredentials
 -- Purpose: Inserts credentials into the credentials table
 -- =====================================================
-
 
 CREATE PROCEDURE AddCredentials(
 	IN v_emp_id INT,
@@ -248,16 +260,15 @@ END //
 -- Purpose: Inserts payroll info into the payroll table
 -- =====================================================
 
-
 CREATE PROCEDURE AddPayroll(
 	IN v_pay_date DATE,
-	IN v_earnings DECIMAL(8, 2),
-	IN v_fed_tax DECIMAL(7, 2),
-	IN v_fed_med DECIMAL(7, 2),
-	IN v_fed_ss DECIMAL(7, 2),
-	IN v_state_tax DECIMAL(7, 2),
-	IN v_retirement_401k DECIMAL(7, 2),
-	IN v_health_care DECIMAL(7, 2),
+	IN v_earnings DECIMAL(8,2),
+	IN v_fed_tax DECIMAL(7,2),
+	IN v_fed_med DECIMAL(7,2),
+	IN v_fed_ss DECIMAL(7,2),
+	IN v_state_tax DECIMAL(7,2),
+	IN v_retirement_401k DECIMAL(7,2),
+	IN v_health_care DECIMAL(7,2),
 	IN v_emp_id INT
 )
 	
@@ -312,37 +323,16 @@ END //
 -- =====================================================
 
 CREATE PROCEDURE AddDivision(
-	IN v_name varchar(100),
-	IN v_city varchar(50),
-	IN v_address_line1 varchar(50),
-	IN v_address_line2 varchar(50),
-	IN v_state varchar(50),
-	IN v_country varchar(50),
-	IN v_postal_code varchar(15)
+	IN v_div_name VARCHAR(100),
+	in v_address_id INT
 )
 
 BEGIN
 	
-	INSERT INTO division(
-		name,
-		city,
-		address_line1,
-		address_line2,
-		state,
-		country,
-		postal_code
-	)
+	INSERT INTO divisions(div_name, address_id)
 	
-	VALUES(
-		v_name,
-		v_city,
-		v_address_line1,
-		v_address_line2,
-		v_state,
-		v_country,
-		v_postal_code
-	);
-
+	VALUES(v_div_name, v_address_id);
+	
 END //
 	
 -- =====================================================
