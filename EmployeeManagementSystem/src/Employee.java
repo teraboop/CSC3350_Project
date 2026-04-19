@@ -1,5 +1,4 @@
 
-import java.util.ArrayList;
 
 public class Employee {
     private enum Classify {
@@ -19,23 +18,6 @@ public class Employee {
 
     };
 
-    private class EmergencyContact {
-        private final String name;
-        private final String phone_number;
-
-        public EmergencyContact(String name, String phone_number) {
-            this.name = name;
-            this.phone_number = phone_number;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getPhoneNumber() {
-            return phone_number;
-        }
-    }
 
     private final Classify classify;
     private String first_name;
@@ -49,14 +31,14 @@ public class Employee {
     private String email;
     private String ssn;
     private String dob;
-    private ArrayList<EmergencyContact> emergencyContacts;
+    private String emergencyContactName;
+    private String emergencyContactPhone;
 
     public Employee(int roleID, int ID, String first_name, String last_name){
         this.classify = (roleID == 0) ? Classify.Employee : Classify.Admin;
         emp_ID = ID;
         this.first_name = first_name;
         this.last_name = last_name;
-        this.emergencyContacts = new ArrayList<>();
     }
 
     //getters
@@ -91,6 +73,10 @@ public class Employee {
         return address;
     }
 
+    public int getAddressID(){
+        return address_ID;
+    }
+
     public Boolean getClassify(){
         return this.classify.isAdmin();
     }
@@ -107,9 +93,14 @@ public class Employee {
         return dob;
     }
 
-    public ArrayList<EmergencyContact> getEmergencyContacts(){
-        return emergencyContacts;
+    public String getEmergencyContactName(){
+        return emergencyContactName;
     }
+
+    public String getEmergencyContactPhone(){
+        return emergencyContactPhone;
+    }
+
 
     //setters
     public void setEmpID(int emp_ID){
@@ -128,7 +119,7 @@ public class Employee {
         this.email = email;
     }
 
-    public void setSalary(float salary){
+    public void setSalary(double salary){
         this.salary = salary;
     }
 
@@ -138,6 +129,10 @@ public class Employee {
 
     public void setAddress(String address){
         this.address = address;
+    }
+
+    public void setAddressID(int address_ID){
+        this.address_ID = address_ID;
     }
 
     public void setPhoneNumber(String phone_number){
@@ -152,7 +147,12 @@ public class Employee {
         this.dob = dob;
     }
 
-    public void addEmergencyContact(String name, String phone_number){
-        this.emergencyContacts.add(new EmergencyContact(name, phone_number));
+    public void setEmergencyContactName(String emergencyContactName){
+        this.emergencyContactName = emergencyContactName;
     }
+
+    public void setEmergencyContactPhone(String emergencyContactPhone){
+        this.emergencyContactPhone = emergencyContactPhone;
+    }
+
 }

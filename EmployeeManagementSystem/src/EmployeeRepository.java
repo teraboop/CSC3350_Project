@@ -144,7 +144,7 @@ public class EmployeeRepository {
                            "JOIN credentials c ON e.emp_id = c.emp_id";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-        
+
             while(rs.next()) {
                 int emp_id = rs.getInt("emp_id");
                 String first_name = rs.getString("first_name");
@@ -168,26 +168,97 @@ public class EmployeeRepository {
 
     //CRUD methods for HRAdmin
     public void save(Employee employee) {
-        //Saves a new employee to the database
+        try(Connection conn = dbConnector.getConnection()){
+            String query = "INSERT INTO employees (first_name, last_name, email, hire_date, salary, ssn, address_id, dob, phone, emergency_contact_name, emergency_contact_phone) " +
+                           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, employee.getFirstName());
+            stmt.setString(2, employee.getLastName());
+            stmt.setString(3, employee.getEmail());
+            stmt.setString(4, employee.getEmploymentDate());
+            stmt.setDouble(5, employee.getSalary());
+            stmt.setString(6, employee.getSSN());
+            stmt.setInt(7, employee.getAddressID());
+            stmt.setString(8, employee.getDob());
+            stmt.setString(9, employee.getPhoneNumber());
+            stmt.setString(10, employee.getEmergencyContactName());
+            stmt.setString(11, employee.getEmergencyContactPhone());
+        
+            stmt.executeUpdate();
+            System.out.println("Employee saved successfully");
+        } catch (Exception e) {
+            System.out.println("Error saving employee");
+            e.printStackTrace();
+        }
     }
-
+    
     public void update(Employee employee) {
-        //Updates an existing employee's information in the database
+        try(Connection conn = dbConnector.getConnection()){
+            String query = "UPDATE employees SET first_name = ?, last_name = ?, email = ?, hire_date = ?, salary = ?, ssn = ?, address_id = ?, dob = ?, phone = ?, emergency_contact_name = ?, emergency_contact_phone = ? " +
+                           "WHERE emp_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, employee.getFirstName());
+            stmt.setString(2, employee.getLastName());
+            stmt.setString(3, employee.getEmail());
+            stmt.setString(4, employee.getEmploymentDate());
+            stmt.setDouble(5, employee.getSalary());
+            stmt.setString(6, employee.getSSN());
+            stmt.setInt(7, employee.getAddressID());
+            stmt.setString(8, employee.getDob());
+            stmt.setString(9, employee.getPhoneNumber());
+            stmt.setString(10, employee.getEmergencyContactName());
+            stmt.setString(11, employee.getEmergencyContactPhone());
+            stmt.setInt(12, employee.getEmpID());
+        
+            stmt.executeUpdate();
+            System.out.println("Employee updated successfully");
+        } catch (Exception e) {
+            System.out.println("Error updating employee with ID " + employee.getEmpID());
+            e.printStackTrace();
+        }
     }
 
     public void delete(int emp_ID) {
-        //Deletes an employee from the database based on their ID
+        try(Connection conn = dbConnector.getConnection()){
+            String query = "DELETE FROM employees WHERE emp_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, emp_ID);
+            stmt.executeUpdate();
+            System.out.println("Employee with ID " + emp_ID + " deleted successfully");
+        } catch (Exception e) {
+            System.out.println("Error deleting employee with ID " + emp_ID);
+            e.printStackTrace();
+        }
     }
 
     //Utility methods
 
     public boolean exists(int emp_ID) {
-        //Checks if an employee with the given ID exists in the database
-        return false;
+        try(Connection conn = dbConnector.getConnection()){
+            String query = "SELECT 1 FROM employees WHERE emp_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, emp_ID);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            System.out.println("Error checking if employee exists");
+            e.printStackTrace();
+            return false;
+        }
     }
-    
+
     public int count() {
-        //Returns the total number of employees in the database
+        try(Connection conn = dbConnector.getConnection()){
+            String query = "SELECT COUNT(*) FROM employees";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("Error counting employees");
+            e.printStackTrace();
+        }
         return 0;
     }
 }
