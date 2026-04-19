@@ -43,10 +43,12 @@ public class Employee {
     private int emp_ID;
     private String employmentDate;
     private String address;
-    private float salary;
+    private int address_ID;
+    private double salary;
     private String phone_number;
     private String email;
     private String ssn;
+    private String dob;
     private ArrayList<EmergencyContact> emergencyContacts;
 
     public Employee(int roleID, int ID, String first_name, String last_name){
@@ -77,7 +79,7 @@ public class Employee {
         return email;
     }
 
-    public float getSalary(){
+    public double getSalary(){
         return salary;
     }
 
@@ -99,6 +101,10 @@ public class Employee {
 
     public String getSSN(){
         return ssn;
+    }
+
+    public String getDob(){
+        return dob;
     }
 
     public ArrayList<EmergencyContact> getEmergencyContacts(){
@@ -140,6 +146,10 @@ public class Employee {
 
     public void setSSN(String ssn){
         this.ssn = ssn;
+    }
+
+    public void setDob(String dob){
+        this.dob = dob;
     }
 
     public void addEmergencyContact(String name, String phone_number){
