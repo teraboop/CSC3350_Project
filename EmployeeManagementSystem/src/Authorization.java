@@ -29,7 +29,7 @@ public class Authorization {
 
     public Employee login(String username, String password) {
         try (Connection conn = dbConnector.getConnection()){
-            String query = "SELECT empid, password_hash FROM credentials WHERE username = ?";
+            String query = "SELECT emp_ID, password_hash FROM credentials WHERE username = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
 
@@ -41,14 +41,14 @@ public class Authorization {
             }
 
             String storedHash = rs.getString("password_hash");
-            int empID = rs.getInt("empid");
+            int emp_ID = rs.getInt("emp_ID");
 
             if (!verifyPassword(password, storedHash)) {
                 System.out.println("Incorrect password.");
                 return null;
             }
 
-            Employee user = fetchEmployee(empID);
+            Employee user = fetchEmployee(emp_ID);
             this.currentUser = user;
             
             System.out.println("Login successful. Welcome, " + username + "!");
@@ -60,25 +60,25 @@ public class Authorization {
         }
     }
 
-    private Employee fetchEmployee(int empID) throws SQLException {
+    private Employee fetchEmployee(int emp_ID) throws SQLException {
         try(Connection conn = dbConnector.getConnection()){
-            String query = "SELECT e.empid, e.Fname, e.Lname, c.classification FROM employees e " +
-                        "JOIN credentials c ON e.empid = c.empid WHERE e.empid = ?";
+            String query = "SELECT e.emp_ID, e.first_name, e.last_name, c.classification FROM employees e " +
+                        "JOIN credentials c ON e.emp_ID = c.emp_ID WHERE e.emp_ID = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, empID);
+            stmt.setInt(1, emp_ID);
             
             ResultSet rs = stmt.executeQuery();
             
             if (rs.next()) {
                 String classification = rs.getString("classification");
-                String Fname = rs.getString("Fname");
-                String Lname = rs.getString("Lname");
+                String first_name = rs.getString("first_name");
+                String last_name = rs.getString("last_name");
                 // Convert ENUM string to roleID (Admin = 1, Employee = 0)
                 int roleID = classification.equals("Admin") ? 1 : 0;
                 if (roleID == 1) {
-                    return new HRAdmin(roleID, empID, Fname, Lname);
+                    return new HRAdmin(roleID, emp_ID, first_name, last_name);
                 } else {
-                    return new Employee(roleID, empID, Fname, Lname);
+                    return new Employee(roleID, emp_ID, first_name, last_name);
                 }
             }
         }
@@ -91,7 +91,7 @@ public class Authorization {
     public Employee logout() {
 
         if (currentUser != null) {
-            System.out.println("User with empID " + currentUser.getEmpID() + " logged out.");
+            System.out.println("User with emp_ID " + currentUser.getEmpID() + " logged out.");
             currentUser = null;
         } else {
             System.out.println("No user is currently logged in.");

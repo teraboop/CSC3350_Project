@@ -16,24 +16,24 @@ public class Employee {
 
     };
     private final Classify classify;
-    private String Fname;
-    private String Lname;
-    private int empID;
+    private String first_name;
+    private String last_name;
+    private int emp_ID;
     private String employmentDate;
     private String address;
-    public Employee(int roleID, int ID, String Fname, String Lname){
+    public Employee(int roleID, int ID, String first_name, String last_name){
         this.classify = (roleID == 0) ? Classify.Employee : Classify.Admin;
-        empID = ID;
-        this.Fname = Fname;
-        this.Lname = Lname;
+        emp_ID = ID;
+        this.first_name = first_name;
+        this.last_name = last_name;
     }
 
     public int getEmpID(){
-        return empID;
+        return emp_ID;
     }
 
-    public void setEmpID(int empID){
-        this.empID = empID;
+    public void setEmpID(int emp_ID){
+        this.emp_ID = emp_ID;
     }
     public String getEmploymentDate(){
         return employmentDate;
