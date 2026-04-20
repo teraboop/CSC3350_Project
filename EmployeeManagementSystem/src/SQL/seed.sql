@@ -452,3 +452,17 @@ INSERT INTO employee_job_titles (emp_id, job_title_id)
 		(13, 2),
 		(14, 7),
 		(15, 6);
+
+/******************************************************************************/
+
+INSERT INTO credentials (emp_id, username, password_hash, password_salt, classification)
+	VALUES
+	  ((SELECT emp_id FROM employees WHERE email = 'Snoopy@example.com'),
+	   'snoopy', TO_BASE64(UNHEX(SHA2('Password1!', 256))), '', 'Employee'),
+	
+	  ((SELECT emp_id FROM employees WHERE email = 'Charlie@example.com'),
+	   'charlie', TO_BASE64(UNHEX(SHA2('Password1!', 256))), '', 'Employee'),
+	
+	  -- Add an Admin user for testing HR functionality
+	  ((SELECT emp_id FROM employees WHERE email = 'Lucy@example.com'),
+	   'admin', TO_BASE64(UNHEX(SHA2('AdminPass1!', 256))), '', 'Admin');

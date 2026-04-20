@@ -1,6 +1,8 @@
+package backend;
 import java.security.MessageDigest;
 import java.sql.*;
 import java.util.Base64;
+import java.nio.charset.StandardCharsets;
 
 public class Authorization {
     private DatabaseConnector dbConnector;
@@ -13,7 +15,7 @@ public class Authorization {
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes());
+            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(hash);
         } catch (Exception e) {
             System.out.println("Error hashing password.");
