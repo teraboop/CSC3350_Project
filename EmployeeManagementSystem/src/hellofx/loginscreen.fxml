@@ -17,7 +17,7 @@
             <TextField fx:id="usernameField" promptText="Username" />
             <PasswordField fx:id="passwordField" promptText="Password" />
             <Button mnemonicParsing="false" text="Login" onAction="#handleLogin" />
-            <Text fx:id="loginErrorText" fill="red" text="bad login info, try again bozo" />
+            <Text fx:id="loginErrorText" fill="red" text="" />
          </children>
       </VBox>
    </children>
