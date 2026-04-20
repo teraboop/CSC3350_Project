@@ -6,50 +6,56 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Reports {
-public String getPaymentInfo(Employee emp) {
-    StringBuilder output = new StringBuilder();
-    String header = String.format("%-15s %-10s %-12s %-10s %-15s %-10s %-10s %-10s%n",
-    "PAYMENT DATE", "EARNINGS", "FEDERAL TAX", "MEDICARE", "SOCIAL SECURITY", "STATE TAX", "401K", "HEALTHCARE");
-    output.append(header);
-    DatabaseConnector dbConn = new DatabaseConnector();
-    int ID = emp.getEmpID();
+import javafx.fxml.FXML;
 
-    // The connection will close automatically after the catch block
-    try (Connection conn = dbConn.getConnection()) {
-        String query = "SELECT pay_date, earnings, fed_tax, fed_med, fed_SS, state_tax, " + 
-                       "retirement_401k, health_care FROM payroll WHERE emp_id = ?";
-        
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, ID);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (!rs.next()) {
-                    System.out.println("No records found in DB for ID: " + ID);
-                    return null;
+public class Reports {
+    @FXML
+    public String getPaymentInfo(Employee emp, ActionEvent event) {
+        StringBuilder output = new StringBuilder();
+        String header = String.format("%-15s %-10s %-12s %-10s %-15s %-10s %-10s %-10s%n",
+        "PAYMENT DATE", "EARNINGS", "FEDERAL TAX", "MEDICARE", "SOCIAL SECURITY", "STATE TAX", "401K", "HEALTHCARE");
+        output.append(header);
+        DatabaseConnector dbConn = new DatabaseConnector();
+        int ID = emp.getEmpID();
+
+        // The connection will close automatically after the catch block
+        try (Connection conn = dbConn.getConnection()) {
+            String query = "SELECT pay_date, earnings, fed_tax, fed_med, fed_SS, state_tax, " + 
+                        "retirement_401k, health_care FROM payroll WHERE emp_id = ?";
+            
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setInt(1, ID);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (!rs.next()) {
+                        System.out.println("No records found in DB for ID: " + ID);
+                        return null;
+                    }
+                    
+                    do { 
+                        output.append(String.format("%-15s %-10.2f %-12.2f %-10.2f %-15.2f %-10.2f %-10.2f %-10.2f%n",
+                            rs.getDate(1),  // %-15s (Date)
+                            rs.getFloat(2),   // %-10d (Earnings)
+                            rs.getFloat(3),   // %-12d (Fed Tax)
+                            rs.getFloat(4),   // %-10d (Fed Med)
+                            rs.getFloat(5),   // %-15d (Fed SS)
+                            rs.getFloat(6),   // %-10d (State Tax)
+                            rs.getFloat(7),   // %-10d (401k)
+                            rs.getFloat(8)    // %-10d (Health)
+                        ));
+                    } while (rs.next());
                 }
-                
-                do { 
-                    output.append(String.format("%-15s %-10.2f %-12.2f %-10.2f %-15.2f %-10.2f %-10.2f %-10.2f%n",
-                        rs.getDate(1),  // %-15s (Date)
-                        rs.getFloat(2),   // %-10d (Earnings)
-                        rs.getFloat(3),   // %-12d (Fed Tax)
-                        rs.getFloat(4),   // %-10d (Fed Med)
-                        rs.getFloat(5),   // %-15d (Fed SS)
-                        rs.getFloat(6),   // %-10d (State Tax)
-                        rs.getFloat(7),   // %-10d (401k)
-                        rs.getFloat(8)    // %-10d (Health)
-                    ));
-                } while (rs.next());
             }
-        }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         return output.toString();
     }
 
-    public String getMonthlyPayTitle(int titleID, int month, int year){
+    public String getMonthlyPayTitle(int titleID, int month, int year, Employee emp){
+        if(emp.getClassify() == false){
+            return null;
+        }
         StringBuilder output = new StringBuilder();
         String header = String.format("%-15s %-10s %-12s %-10s %-15s %-10s %-10s %-10s%n",
         "PAYMENT DATE", "EARNINGS", "FEDERAL TAX", "MEDICARE", "SOCIAL SECURITY", "STATE TAX", "401K", "HEALTHCARE");
@@ -112,7 +118,10 @@ public String getPaymentInfo(Employee emp) {
         return output.toString();
     }
 
-    public String getMonthlyPayDiv(int divID, int month, int year){
+    public String getMonthlyPayDiv(int divID, int month, int year, Employee emp){
+        if(emp.getClassify() == false){
+            return null;
+        }
         StringBuilder output = new StringBuilder();
         String header = String.format("%-15s %-10s %-12s %-10s %-15s %-10s %-10s %-10s%n",
         "PAYMENT DATE", "EARNINGS", "FEDERAL TAX", "MEDICARE", "SOCIAL SECURITY", "STATE TAX", "401K", "HEALTHCARE");
@@ -175,7 +184,10 @@ public String getPaymentInfo(Employee emp) {
         return output.toString();
     }
 
-    public String newHires(int startMonth, int startYear, int endMonth, int endYear){
+    public String newHires(int startMonth, int startYear, int endMonth, int endYear, Employee emp){
+        if(emp.getClassify() == false){
+            return null;
+        }
         //gets new hires within (month, year) and (month, year) INCLUSIVE
         StringBuilder output = new StringBuilder();
         String header = String.format("%-12s %-20s %-20s %-30s %-15s %-10s %-12s %-10s%n",
