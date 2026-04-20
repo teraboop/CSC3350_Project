@@ -4,7 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import Reports.java;
+import backend.Reports;
+import backend.Employee;
 public class Controller {
 
     @FXML
@@ -31,7 +32,7 @@ public class Controller {
         }
 
         Reports reports = new Reports();
-        String report = reports.getPaymentInfo(currentEmployee, event);
+        String report = reports.getPaymentInfo(currentEmployee);
         if (report != null) {
             paymentReportTextArea.setText(report);
         } else {

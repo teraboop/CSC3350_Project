@@ -7,11 +7,8 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javafx.fxml.FXML;
-
 public class Reports {
-    @FXML
-    public String getPaymentInfo(Employee emp, ActionEvent event) {
+    public String getPaymentInfo(Employee emp) {
         StringBuilder output = new StringBuilder();
         String header = String.format("%-15s %-10s %-12s %-10s %-15s %-10s %-10s %-10s%n",
         "PAYMENT DATE", "EARNINGS", "FEDERAL TAX", "MEDICARE", "SOCIAL SECURITY", "STATE TAX", "401K", "HEALTHCARE");

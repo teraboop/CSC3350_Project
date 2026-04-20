@@ -7,12 +7,14 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<StackPane fx:controller="hellofx.Controller" maxHeight="-Infinity" maxWidth="-Infinity"
+   minHeight="-Infinity" minWidth="-Infinity"
    prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25"
    xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -55,10 +57,7 @@
                                                          text="Generate Report" />
                                                    </children>
                                                 </StackPane>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0"
-                                                   prefHeight="160.0" prefWidth="100.0" />
-                                             </items>
-                                             <items>
+
                                                 <AnchorPane minHeight="0.0" minWidth="0.0"
                                                    prefHeight="160.0" prefWidth="100.0">
                                                    <children>
