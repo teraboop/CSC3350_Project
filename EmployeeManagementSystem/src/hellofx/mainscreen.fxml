@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -9,11 +11,15 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import java.lang.Integer?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.Controller">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+   prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.Controller">
    <children>
       <TabPane tabClosingPolicy="UNAVAILABLE" tabMinWidth="80.0">
          <tabs>
@@ -31,23 +37,40 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <TabPane prefHeight="371.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TabPane prefHeight="371.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE"
+                           tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0"
+                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                           AnchorPane.topAnchor="0.0">
                            <tabs>
                               <Tab text="Payment History">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                       prefWidth="200.0">
                                        <children>
-                                          <SplitPane dividerPositions="0.25" prefHeight="342.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <SplitPane dividerPositions="0.25" prefHeight="342.0"
+                                             prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+                                             AnchorPane.leftAnchor="0.0"
+                                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <items>
                                                 <StackPane prefHeight="150.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button fx:id="generatePaymentReportButton" mnemonicParsing="false" onAction="#handleGeneratePaymentReport" text="Generate Report" />
+                                                      <Button fx:id="generatePaymentReportButton"
+                                                         mnemonicParsing="false"
+                                                         onAction="#handleGeneratePaymentReport"
+                                                         text="Generate Report" />
                                                    </children>
                                                 </StackPane>
 
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <AnchorPane minHeight="0.0" minWidth="0.0"
+                                                   prefHeight="160.0" prefWidth="100.0">
                                                    <children>
-                                                      <TextArea fx:id="paymentReportTextArea" editable="false" prefHeight="200.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                      <TextArea fx:id="paymentReportTextArea"
+                                                         editable="false" prefHeight="200.0"
+                                                         prefWidth="400.0" wrapText="true"
+                                                         AnchorPane.bottomAnchor="10.0"
+                                                         AnchorPane.leftAnchor="10.0"
+                                                         AnchorPane.rightAnchor="10.0"
+                                                         AnchorPane.topAnchor="10.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </items>
@@ -58,26 +81,147 @@
                               </Tab>
                               <Tab text="Payroll Summaries">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                       prefWidth="200.0">
                                        <children>
-                                          <SplitPane dividerPositions="0.25" prefHeight="342.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <SplitPane dividerPositions="0.25" prefHeight="342.0"
+                                             prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+                                             AnchorPane.leftAnchor="0.0"
+                                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <items>
                                                 <StackPane prefHeight="150.0" prefWidth="200.0">
                                                    <children>
-                                                      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                                                      <VBox alignment="CENTER" prefHeight="200.0"
+                                                         prefWidth="100.0" spacing="10.0">
                                                          <children>
-                                                            <DatePicker promptText="Start Date" />
-                                                            <DatePicker promptText="End Date" />
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Generate By Division" />
-                                                            <ChoiceBox prefWidth="150.0" />
-                                                            <Button mnemonicParsing="false" text="Generate Report" />
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Generate By Title">
+                                                            <HBox alignment="CENTER"
+                                                               prefHeight="75.0" prefWidth="200.0"
+                                                               spacing="10.0">
+                                                               <children>
+                                                                  <VBox alignment="CENTER"
+                                                                     prefHeight="200.0"
+                                                                     prefWidth="100.0">
+                                                                     <children>
+                                                                        <Text strokeType="OUTSIDE"
+                                                                           strokeWidth="0.0"
+                                                                           text="Month" />
+                                                                        <ChoiceBox
+                                                                           fx:id="monthChoice"
+                                                                           prefWidth="150.0">
+                                                                           <items>
+                                                                              <FXCollections
+                                                                                 fx:factory="observableArrayList">
+                                                                                 <Integer
+                                                                                    fx:value="1" />
+                                                                                 <Integer
+                                                                                    fx:value="2" />
+                                                                                 <Integer
+                                                                                    fx:value="3" />
+                                                                                 <Integer
+                                                                                    fx:value="4" />
+                                                                                 <Integer
+                                                                                    fx:value="5" />
+                                                                                 <Integer
+                                                                                    fx:value="6" />
+                                                                                 <Integer
+                                                                                    fx:value="7" />
+                                                                                 <Integer
+                                                                                    fx:value="8" />
+                                                                                 <Integer
+                                                                                    fx:value="9" />
+                                                                                 <Integer
+                                                                                    fx:value="10" />
+                                                                                 <Integer
+                                                                                    fx:value="11" />
+                                                                                 <Integer
+                                                                                    fx:value="12" />
+                                                                              </FXCollections>
+                                                                           </items>
+                                                                        </ChoiceBox>
+                                                                     </children>
+                                                                  </VBox>
+                                                                  <VBox alignment="CENTER"
+                                                                     prefHeight="200.0"
+                                                                     prefWidth="100.0">
+                                                                     <children>
+                                                                        <Text strokeType="OUTSIDE"
+                                                                           strokeWidth="0.0"
+                                                                           text="Year" />
+                                                                        <ChoiceBox
+                                                                           fx:id="yearChoice"
+                                                                           prefWidth="150.0">
+                                                                           <items>
+                                                                              <FXCollections
+                                                                                 fx:factory="observableArrayList">
+                                                                                 <Integer
+                                                                                    fx:value="2025" />
+                                                                                 <Integer
+                                                                                    fx:value="2026" />
+                                                                              </FXCollections>
+                                                                           </items>
+                                                                        </ChoiceBox>
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children>
+                                                            </HBox>
+                                                            <Text strokeType="OUTSIDE"
+                                                               strokeWidth="0.0"
+                                                               text="Generate By Division" />
+                                                            <ChoiceBox fx:id="divisionChoiceBox"
+                                                               prefWidth="150.0">
+                                                               <items>
+                                                                  <FXCollections
+                                                                     fx:factory="observableArrayList">
+                                                                     <String
+                                                                        fx:value="Technology Engineering" />
+                                                                     <String fx:value="Marketing" />
+                                                                     <String
+                                                                        fx:value="Human Resources" />
+                                                                     <String fx:value="Headquarters" />
+                                                                  </FXCollections>
+                                                               </items>
+                                                            </ChoiceBox>
+                                                            <Button mnemonicParsing="false"
+                                                               onAction="#handleGeneratePayrollDiv"
+                                                               text="Generate Report" />
+                                                            <Text strokeType="OUTSIDE"
+                                                               strokeWidth="0.0"
+                                                               text="Generate By Title">
                                                                <VBox.margin>
                                                                   <Insets top="20.0" />
                                                                </VBox.margin>
                                                             </Text>
-                                                            <ChoiceBox prefWidth="150.0" />
-                                                            <Button mnemonicParsing="false" text="Generate Report" />
+                                                            <ChoiceBox fx:id="titleChoiceBox"
+                                                               prefWidth="150.0">
+                                                               <items>
+                                                                  <FXCollections
+                                                                     fx:factory="observableArrayList">
+                                                                     <String
+                                                                        fx:value="Software Manager" />
+                                                                     <String
+                                                                        fx:value="Software Engineer" />
+                                                                     <String
+                                                                        fx:value="Software Developer" />
+                                                                     <String
+                                                                        fx:value="Software Architect" />
+                                                                     <String
+                                                                        fx:value="Marketing Manager" />
+                                                                     <String
+                                                                        fx:value="Marketing Associate" />
+                                                                     <String
+                                                                        fx:value="Marketing Assistant" />
+                                                                     <String
+                                                                        fx:value="Chief Executive Officer" />
+                                                                     <String
+                                                                        fx:value="Chief Financial Officer" />
+                                                                     <String
+                                                                        fx:value="Chief Information Officer" />
+                                                                  </FXCollections>
+                                                               </items>
+                                                            </ChoiceBox>
+                                                            <Button mnemonicParsing="false"
+                                                               onAction="#handleGeneratePayrollTitle"
+                                                               text="Generate Report" />
                                                          </children>
                                                          <padding>
                                                             <Insets left="10.0" right="10.0" />
@@ -85,10 +229,18 @@
                                                       </VBox>
                                                    </children>
                                                 </StackPane>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <AnchorPane minHeight="0.0" minWidth="0.0"
+                                                   prefHeight="160.0" prefWidth="100.0">
                                                    <children>
-                                                      <TextArea fx:id="payrollReportTextArea" editable="false" prefHeight="200.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                                   </children></AnchorPane>
+                                                      <TextArea fx:id="payrollReportTextArea"
+                                                         editable="false" prefHeight="200.0"
+                                                         prefWidth="400.0" wrapText="true"
+                                                         AnchorPane.bottomAnchor="10.0"
+                                                         AnchorPane.leftAnchor="10.0"
+                                                         AnchorPane.rightAnchor="10.0"
+                                                         AnchorPane.topAnchor="10.0" />
+                                                   </children>
+                                                </AnchorPane>
                                              </items>
                                           </SplitPane>
                                        </children>
@@ -97,20 +249,30 @@
                               </Tab>
                               <Tab text="Hire History">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                       prefWidth="200.0">
                                        <children>
-                                          <SplitPane dividerPositions="0.25" prefHeight="342.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <SplitPane dividerPositions="0.25" prefHeight="342.0"
+                                             prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+                                             AnchorPane.leftAnchor="0.0"
+                                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <items>
                                                 <StackPane prefHeight="150.0" prefWidth="200.0">
                                                    <children>
-                                                      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                                                      <VBox alignment="CENTER" prefHeight="200.0"
+                                                         prefWidth="100.0" spacing="10.0">
                                                          <children>
-                                                            <DatePicker promptText="Start Date" />
-                                                            <DatePicker promptText="End Date">
+                                                            <DatePicker fx:id="hireDateStart"
+                                                               promptText="Start Date" />
+                                                            <DatePicker fx:id="hireDateEnd"
+                                                               promptText="End Date">
                                                                <VBox.margin>
                                                                   <Insets top="10.0" />
-                                                               </VBox.margin></DatePicker>
-                                                            <Button mnemonicParsing="false" text="Generate Report" />
+                                                               </VBox.margin>
+                                                            </DatePicker>
+                                                            <Button mnemonicParsing="false"
+                                                               onAction="#handleGenerateNewHires"
+                                                               text="Generate Report" />
                                                          </children>
                                                          <padding>
                                                             <Insets left="10.0" right="10.0" />
@@ -118,10 +280,18 @@
                                                       </VBox>
                                                    </children>
                                                 </StackPane>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <AnchorPane minHeight="0.0" minWidth="0.0"
+                                                   prefHeight="160.0" prefWidth="100.0">
                                                    <children>
-                                                      <TextArea fx:id="hireTextArea" editable="false" prefHeight="200.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                                   </children></AnchorPane>
+                                                      <TextArea fx:id="hireTextArea"
+                                                         editable="false" prefHeight="200.0"
+                                                         prefWidth="400.0" wrapText="true"
+                                                         AnchorPane.bottomAnchor="10.0"
+                                                         AnchorPane.leftAnchor="10.0"
+                                                         AnchorPane.rightAnchor="10.0"
+                                                         AnchorPane.topAnchor="10.0" />
+                                                   </children>
+                                                </AnchorPane>
                                              </items>
                                           </SplitPane>
                                        </children>
