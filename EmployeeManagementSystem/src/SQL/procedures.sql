@@ -10,10 +10,6 @@ DROP PROCEDURE IF EXISTS AddDivision;
 DROP PROCEDURE IF EXISTS AddEmployeeDivision;
 DROP PROCEDURE IF EXISTS AddEmployeeJobTitle;
 
-
-
-
-
 DELIMITER //
 
 -- =====================================================
