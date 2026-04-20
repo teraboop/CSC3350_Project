@@ -279,6 +279,132 @@ INSERT INTO payroll (pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state
 	FROM employees
 	WHERE emp_id=6;
 
+INSERT INTO payroll (pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
+	SELECT 
+		'2025-12-31', 
+		7, 
+		salary/52.0, 
+		(salary/52.0)*0.32, 
+		(salary/52.0)*0.0145, 
+		(salary/52.0)*0.062,
+		(salary/52.0)*0.12,
+		(salary/52.0)*0.004,
+		(salary/52.0)*0.031 
+	FROM employees
+	WHERE emp_id=7;
+
+INSERT INTO payroll (pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
+	SELECT 
+		'2025-12-31', 
+		8, 
+		salary/52.0, 
+		(salary/52.0)*0.32, 
+		(salary/52.0)*0.0145, 
+		(salary/52.0)*0.062,
+		(salary/52.0)*0.12,
+		(salary/52.0)*0.004,
+		(salary/52.0)*0.031 
+	FROM employees
+	WHERE emp_id=8;
+
+
+INSERT INTO payroll (pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
+	SELECT 
+		'2025-12-31', 
+		9, 
+		salary/52.0, 
+		(salary/52.0)*0.32, 
+		(salary/52.0)*0.0145, 
+		(salary/52.0)*0.062,
+		(salary/52.0)*0.12,
+		(salary/52.0)*0.004,
+		(salary/52.0)*0.031 
+	FROM employees
+	WHERE emp_id=9;
+
+INSERT INTO payroll (pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
+	SELECT 
+		'2025-12-31', 
+		10, 
+		salary/52.0, 
+		(salary/52.0)*0.32, 
+		(salary/52.0)*0.0145, 
+		(salary/52.0)*0.062,
+		(salary/52.0)*0.12,
+		(salary/52.0)*0.004,
+		(salary/52.0)*0.031 
+	FROM employees
+	WHERE emp_id=10;
+
+INSERT INTO payroll (pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
+	SELECT 
+		'2025-12-31', 
+		11, 
+		salary/52.0, 
+		(salary/52.0)*0.32, 
+		(salary/52.0)*0.0145, 
+		(salary/52.0)*0.062,
+		(salary/52.0)*0.12,
+		(salary/52.0)*0.004,
+		(salary/52.0)*0.031 
+	FROM employees
+	WHERE emp_id=11;
+
+INSERT INTO payroll (pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
+	SELECT 
+		'2025-12-31', 
+		12, 
+		salary/52.0, 
+		(salary/52.0)*0.32, 
+		(salary/52.0)*0.0145, 
+		(salary/52.0)*0.062,
+		(salary/52.0)*0.12,
+		(salary/52.0)*0.004,
+		(salary/52.0)*0.031 
+	FROM employees
+	WHERE emp_id=12;
+
+INSERT INTO payroll (pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
+	SELECT 
+		'2025-12-31', 
+		13, 
+		salary/52.0, 
+		(salary/52.0)*0.32, 
+		(salary/52.0)*0.0145, 
+		(salary/52.0)*0.062,
+		(salary/52.0)*0.12,
+		(salary/52.0)*0.004,
+		(salary/52.0)*0.031 
+	FROM employees
+	WHERE emp_id=13;
+
+INSERT INTO payroll (pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
+	SELECT 
+		'2025-12-31', 
+		14, 
+		salary/52.0, 
+		(salary/52.0)*0.32, 
+		(salary/52.0)*0.0145, 
+		(salary/52.0)*0.062,
+		(salary/52.0)*0.12,
+		(salary/52.0)*0.004,
+		(salary/52.0)*0.031 
+	FROM employees
+	WHERE emp_id=14;
+
+INSERT INTO payroll (pay_date, emp_id, earnings, fed_tax, fed_med, fed_ss, state_tax, retirement_401k, health_care)
+	SELECT 
+		'2025-12-31', 
+		15, 
+		salary/52.0, 
+		(salary/52.0)*0.32, 
+		(salary/52.0)*0.0145, 
+		(salary/52.0)*0.062,
+		(salary/52.0)*0.12,
+		(salary/52.0)*0.004,
+		(salary/52.0)*0.031 
+	FROM employees
+	WHERE emp_id=15;
 
 /* You can copy the above two INSERT statements for pay_id=13 
      and emp_id=7, then pay_id=14, and emp_id=7, pay_id=15 ... etc.
@@ -296,21 +422,31 @@ INSERT INTO employee_division (emp_id, div_id)
 		(1, 1),
 		(2, 3),
 		(3, 2),
-		(7, 4),
-		(10,1);
+		(4, 4),
+		(5,1),
+		(6, 2),
+		(7, 3),
+		(8, 4),
+		(9, 2),
+		(10, 3),
+		(11, 4),
+		(12, 1),
+		(13, 2),
+		(14, 3),
+		(15, 4);
 			
 INSERT INTO employee_job_titles (emp_id, job_title_id)
 	VALUES
 		(1, 1),
-		(2, 9),
-		(3, 10),
+		(2, 2),
+		(3, 3),
 		(4, 4),
 		(5, 3),
 		(6, 1),
 		(7, 5),
 		(8, 2),
 		(9, 8),
-		(10, 2),
+		(10, 10),
 		(11, 4),
 		(12, 1),
 		(13, 2),
