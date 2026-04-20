@@ -11,7 +11,13 @@ public class Authorization {
     public Authorization(DatabaseConnector dbConnector) {
         this.dbConnector = dbConnector;
     }
-
+    /**
+     * Hashes a plaintext password using SHA-256 and encodes the result in Base64.
+     *
+     * @param password the plaintext password to hash
+     * @return a Base64-encoded SHA-256 hash of the password,
+     *         or {@code null} if hashing fails
+     */
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

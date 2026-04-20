@@ -46,7 +46,7 @@ public class Controller {
         }
 
         Reports reports = new Reports();
-        String report = reports.getPaymentInfo(currentEmployee, event);
+        String report = reports.getPaymentInfo(currentEmployee);
         if (report != null) {
             paymentReportTextArea.setText(report);
         } else {
