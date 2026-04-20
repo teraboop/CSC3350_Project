@@ -13,10 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:controller="hellofx.Controller" maxHeight="-Infinity" maxWidth="-Infinity"
-   minHeight="-Infinity" minWidth="-Infinity"
-   prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25"
-   xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.Controller">
    <children>
       <TabPane tabClosingPolicy="UNAVAILABLE" tabMinWidth="80.0">
          <tabs>
@@ -34,40 +31,23 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <TabPane prefHeight="371.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE"
-                           tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0"
-                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                           AnchorPane.topAnchor="0.0">
+                        <TabPane prefHeight="371.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <tabs>
                               <Tab text="Payment History">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                       prefWidth="200.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <SplitPane dividerPositions="0.25" prefHeight="342.0"
-                                             prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
-                                             AnchorPane.leftAnchor="0.0"
-                                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <SplitPane dividerPositions="0.25" prefHeight="342.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <items>
                                                 <StackPane prefHeight="150.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button fx:id="generatePaymentReportButton"
-                                                         mnemonicParsing="false"
-                                                         onAction="#handleGeneratePaymentReport"
-                                                         text="Generate Report" />
+                                                      <Button fx:id="generatePaymentReportButton" mnemonicParsing="false" onAction="#handleGeneratePaymentReport" text="Generate Report" />
                                                    </children>
                                                 </StackPane>
 
-                                                <AnchorPane minHeight="0.0" minWidth="0.0"
-                                                   prefHeight="160.0" prefWidth="100.0">
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                                    <children>
-                                                      <TextArea fx:id="paymentReportTextArea"
-                                                         editable="false" prefHeight="200.0"
-                                                         prefWidth="400.0" wrapText="true"
-                                                         AnchorPane.bottomAnchor="10.0"
-                                                         AnchorPane.leftAnchor="10.0"
-                                                         AnchorPane.rightAnchor="10.0"
-                                                         AnchorPane.topAnchor="10.0" />
+                                                      <TextArea fx:id="paymentReportTextArea" editable="false" prefHeight="200.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </items>
@@ -78,35 +58,26 @@
                               </Tab>
                               <Tab text="Payroll Summaries">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                       prefWidth="200.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <SplitPane dividerPositions="0.25" prefHeight="342.0"
-                                             prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
-                                             AnchorPane.leftAnchor="0.0"
-                                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <SplitPane dividerPositions="0.25" prefHeight="342.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <items>
                                                 <StackPane prefHeight="150.0" prefWidth="200.0">
                                                    <children>
-                                                      <VBox alignment="CENTER" prefHeight="200.0"
-                                                         prefWidth="100.0" spacing="10.0">
+                                                      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                                                          <children>
-                                                            <Text strokeType="OUTSIDE"
-                                                               strokeWidth="0.0"
-                                                               text="Generate By Division" />
+                                                            <DatePicker promptText="Start Date" />
+                                                            <DatePicker promptText="End Date" />
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Generate By Division" />
                                                             <ChoiceBox prefWidth="150.0" />
-                                                            <Button mnemonicParsing="false"
-                                                               text="Generate Report" />
-                                                            <Text strokeType="OUTSIDE"
-                                                               strokeWidth="0.0"
-                                                               text="Generate By Title">
+                                                            <Button mnemonicParsing="false" text="Generate Report" />
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Generate By Title">
                                                                <VBox.margin>
                                                                   <Insets top="20.0" />
                                                                </VBox.margin>
                                                             </Text>
                                                             <ChoiceBox prefWidth="150.0" />
-                                                            <Button mnemonicParsing="false"
-                                                               text="Generate Report" />
+                                                            <Button mnemonicParsing="false" text="Generate Report" />
                                                          </children>
                                                          <padding>
                                                             <Insets left="10.0" right="10.0" />
@@ -114,8 +85,10 @@
                                                       </VBox>
                                                    </children>
                                                 </StackPane>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0"
-                                                   prefHeight="160.0" prefWidth="100.0" />
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                   <children>
+                                                      <TextArea fx:id="payrollReportTextArea" editable="false" prefHeight="200.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                   </children></AnchorPane>
                                              </items>
                                           </SplitPane>
                                        </children>
@@ -124,31 +97,20 @@
                               </Tab>
                               <Tab text="Hire History">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                       prefWidth="200.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <SplitPane dividerPositions="0.25" prefHeight="342.0"
-                                             prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
-                                             AnchorPane.leftAnchor="0.0"
-                                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <SplitPane dividerPositions="0.25" prefHeight="342.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <items>
                                                 <StackPane prefHeight="150.0" prefWidth="200.0">
                                                    <children>
-                                                      <VBox alignment="CENTER" prefHeight="200.0"
-                                                         prefWidth="100.0" spacing="10.0">
+                                                      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                                                          <children>
-                                                            <Text strokeType="OUTSIDE"
-                                                               strokeWidth="0.0" text="Start Date" />
-                                                            <DatePicker />
-                                                            <Text strokeType="OUTSIDE"
-                                                               strokeWidth="0.0" text="End Date">
+                                                            <DatePicker promptText="Start Date" />
+                                                            <DatePicker promptText="End Date">
                                                                <VBox.margin>
-                                                                  <Insets top="20.0" />
-                                                               </VBox.margin>
-                                                            </Text>
-                                                            <DatePicker />
-                                                            <Button mnemonicParsing="false"
-                                                               text="Generate Report" />
+                                                                  <Insets top="10.0" />
+                                                               </VBox.margin></DatePicker>
+                                                            <Button mnemonicParsing="false" text="Generate Report" />
                                                          </children>
                                                          <padding>
                                                             <Insets left="10.0" right="10.0" />
@@ -156,8 +118,10 @@
                                                       </VBox>
                                                    </children>
                                                 </StackPane>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0"
-                                                   prefHeight="160.0" prefWidth="100.0" />
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                   <children>
+                                                      <TextArea fx:id="hireTextArea" editable="false" prefHeight="200.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                   </children></AnchorPane>
                                              </items>
                                           </SplitPane>
                                        </children>
