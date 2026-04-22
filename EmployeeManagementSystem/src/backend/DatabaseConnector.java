@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
-public class DatabaseConnector {
+public class DatabaseConnector implements IDataSource {
     /**
      * Creates and returns a new database connection using credentials loaded
      * from {@code config.properties}.

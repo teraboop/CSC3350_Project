@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 public class EmployeeRepository {
-    private DatabaseConnector dbConnector;
+    private IDataSource dbConnector;
 
     //Search methods
 

@@ -5,10 +5,10 @@ import java.util.Base64;
 import java.nio.charset.StandardCharsets;
 
 public class Authorization {
-    private DatabaseConnector dbConnector;
+    private IDataSource dbConnector;
     private Employee currentUser;
     
-    public Authorization(DatabaseConnector dbConnector) {
+    public Authorization(IDataSource dbConnector) {
         this.dbConnector = dbConnector;
     }
     /**
