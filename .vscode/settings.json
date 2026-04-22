@@ -23,6 +23,8 @@
         "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jdk.jsobject.jar",
         "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jfx.incubator.input.jar",
         "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jfx.incubator.richtext.jar",
-        "EmployeeManagementSystem/lib/mysql-connector-j-9.1.0.jar"
+        "EmployeeManagementSystem/lib/mysql-connector-j-9.1.0.jar",
+        "EmployeeManagementSystem/lib/junit-platform-console-standalone-1.13.0-M3.jar",
+        "EmployeeManagementSystem/lib/junit-jupiter-api-5.14.3.jar"
     ]
 }
