@@ -66,7 +66,7 @@
                                                    <children>
                                                       <TextArea fx:id="paymentReportTextArea"
                                                          editable="false" prefHeight="200.0"
-                                                         prefWidth="400.0" wrapText="true"
+                                                         prefWidth="400.0" wrapText="false"
                                                          AnchorPane.bottomAnchor="10.0"
                                                          AnchorPane.leftAnchor="10.0"
                                                          AnchorPane.rightAnchor="10.0"
@@ -234,7 +234,7 @@
                                                    <children>
                                                       <TextArea fx:id="payrollReportTextArea"
                                                          editable="false" prefHeight="200.0"
-                                                         prefWidth="400.0" wrapText="true"
+                                                         prefWidth="400.0" wrapText="false"
                                                          AnchorPane.bottomAnchor="10.0"
                                                          AnchorPane.leftAnchor="10.0"
                                                          AnchorPane.rightAnchor="10.0"
@@ -285,7 +285,7 @@
                                                    <children>
                                                       <TextArea fx:id="hireTextArea"
                                                          editable="false" prefHeight="200.0"
-                                                         prefWidth="400.0" wrapText="true"
+                                                         prefWidth="400.0" wrapText="false"
                                                          AnchorPane.bottomAnchor="10.0"
                                                          AnchorPane.leftAnchor="10.0"
                                                          AnchorPane.rightAnchor="10.0"

@@ -47,6 +47,16 @@ public class Controller {
     // Existing initialization code...
     String javaVersion = System.getProperty("java.version");
     String javafxVersion = System.getProperty("javafx.version");
+    if (paymentReportTextArea != null) {
+        paymentReportTextArea.setStyle("-fx-font-family: 'monospace'; -fx-font-size: 14;");
+    }
+    if (payrollReportTextArea != null) {
+        payrollReportTextArea.setStyle("-fx-font-family: 'monospace'; -fx-font-size: 14;");
+    }
+    if (hireTextArea != null) {
+        hireTextArea.setStyle("-fx-font-family: 'monospace'; -fx-font-size: 14;");
+    }
+
     }
 
     //PAYMENT HISTORY HANDLER
