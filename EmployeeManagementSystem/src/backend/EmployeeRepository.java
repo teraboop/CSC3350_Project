@@ -7,6 +7,13 @@ public class EmployeeRepository {
     private DatabaseConnector dbConnector;
 
     //Search methods
+
+    /**
+    * Retrieves an employee from the database by their unique employee ID.
+    *
+    * @param emp_ID the unique identifier of the employee to find
+    * @return an {@link Employee} or {@link HRAdmin} object if found, or {@code null} if no match exists
+    */
     public Employee findByID(int emp_ID) {
         //Queries the database for an employee with the given ID and returns an Employee object
         try(Connection conn = dbConnector.getConnection()){
@@ -38,6 +45,12 @@ public class EmployeeRepository {
 
     }
 
+    /**
+    * Retrieves an employee from the database by their full name.
+    *
+    * @param name the full name of the employee to find
+    * @return an {@link Employee} or {@link HRAdmin} object if found, or {@code null} if no match exists
+    */
     public Employee findByName(String name) {
         try(Connection conn = dbConnector.getConnection()){
             String query = "SELECT e.emp_id, e.first_name, e.last_name, c.classification " +
@@ -71,6 +84,12 @@ public class EmployeeRepository {
         }
     }
 
+    /**
+    * Retrieves an employee from the database by their date of birth.
+    *
+    * @param dob the date of birth of the employee to find
+    * @return an {@link Employee} or {@link HRAdmin} object if found, or {@code null} if no match exists
+    */
     public Employee findByDateOfBirth(String dob) {
         try(Connection conn = dbConnector.getConnection()){
             String query = "SELECT e.emp_id, e.first_name, e.last_name, c.classification " +
@@ -103,6 +122,13 @@ public class EmployeeRepository {
             return null;
         }
     }
+
+    /**
+    * Retrieves an employee from the database by their Social Security Number (SSN).
+    *
+    * @param ssn the SSN of the employee to find
+    * @return an {@link Employee} or {@link HRAdmin} object if found, or {@code null} if no match exists
+    */
 
     public Employee findBySSN(String ssn) {
         try(Connection conn = dbConnector.getConnection()){
@@ -137,6 +163,11 @@ public class EmployeeRepository {
         }
     }
 
+    /**
+    * Retrieves all employees from the database.
+    *
+    * @return a list of {@link Employee} and {@link HRAdmin} objects
+    */
     public List<Employee> findAll() {
         List<Employee> employees = new ArrayList<>();
         try(Connection conn = dbConnector.getConnection()){
@@ -168,6 +199,11 @@ public class EmployeeRepository {
 
 
     //CRUD methods for HRAdmin
+    /**
+    * Saves a new employee to the database.
+    *
+    * @param employee the {@link Employee} or {@link HRAdmin} object to save
+    */
     public void save(Employee employee) {
         try(Connection conn = dbConnector.getConnection()){
             String query = "INSERT INTO employees (first_name, last_name, email, hire_date, salary, ssn, address_id, dob, phone, emergency_contact_name, emergency_contact_phone) " +
@@ -193,6 +229,13 @@ public class EmployeeRepository {
         }
     }
     
+    
+    /**
+    * Updates an existing employee in the database.
+    *
+    * @param employee the {@link Employee} or {@link HRAdmin} object to update
+    */
+
     public void update(Employee employee) {
         try(Connection conn = dbConnector.getConnection()){
             String query = "UPDATE employees SET first_name = ?, last_name = ?, email = ?, hire_date = ?, salary = ?, ssn = ?, address_id = ?, dob = ?, phone = ?, emergency_contact_name = ?, emergency_contact_phone = ? " +
@@ -219,6 +262,11 @@ public class EmployeeRepository {
         }
     }
 
+    /**
+    * Deletes an employee record from the database by their unique employee ID.
+    *
+    * @param emp_ID the unique identifier of the employee to delete
+    */
     public void delete(int emp_ID) {
         try(Connection conn = dbConnector.getConnection()){
             String query = "DELETE FROM employees WHERE emp_id = ?";
@@ -234,6 +282,12 @@ public class EmployeeRepository {
 
     //Utility methods
 
+    /**
+    * Checks whether an employee with the given ID exists in the database.
+    *
+    * @param emp_ID the unique identifier of the employee to check
+    * @return {@code true} if an employee with the given ID exists, {@code false} otherwise
+    */
     public boolean exists(int emp_ID) {
         try(Connection conn = dbConnector.getConnection()){
             String query = "SELECT 1 FROM employees WHERE emp_id = ?";
@@ -248,6 +302,11 @@ public class EmployeeRepository {
         }
     }
 
+    /**
+    * Returns the total number of employee records in the database.
+    *
+    * @return the count of employees, or {@code 0} if no records exist or an error occurs
+    */
     public int count() {
         try(Connection conn = dbConnector.getConnection()){
             String query = "SELECT COUNT(*) FROM employees";
