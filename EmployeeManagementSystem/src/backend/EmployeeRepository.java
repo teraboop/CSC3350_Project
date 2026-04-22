@@ -6,161 +6,123 @@ import java.util.*;
 public class EmployeeRepository {
     private DatabaseConnector dbConnector;
 
+    // Default constructor ensures a DatabaseConnector is available
+    public EmployeeRepository() {
+        this.dbConnector = new DatabaseConnector();
+    }
+
+    // Helper to map a result row to an Employee (or HRAdmin)
+    private Employee mapRowToEmployee(ResultSet rs) throws SQLException {
+        int emp_id = rs.getInt("emp_id");
+        String first_name = rs.getString("first_name");
+        String last_name = rs.getString("last_name");
+        String classification = null;
+        try { classification = rs.getString("classification"); } catch(Exception ignore) {}
+        int roleID = (classification != null && classification.equalsIgnoreCase("Admin")) ? 1 : 0;
+
+        Employee e;
+        if (roleID == 1) e = new HRAdmin(roleID, emp_id, first_name, last_name);
+        else e = new Employee(roleID, emp_id, first_name, last_name);
+
+        // Populate additional fields if present in the ResultSet
+        try { e.setEmail(rs.getString("email")); } catch(Exception ignore) {}
+        try { e.setEmploymentDate(rs.getString("hire_date")); } catch(Exception ignore) {}
+        try { e.setSalary(rs.getDouble("salary")); } catch(Exception ignore) {}
+        try { e.setSSN(rs.getString("ssn")); } catch(Exception ignore) {}
+        try { e.setAddressID(rs.getInt("address_id")); } catch(Exception ignore) {}
+        try { e.setDob(rs.getString("dob")); } catch(Exception ignore) {}
+        try { e.setPhoneNumber(rs.getString("phone")); } catch(Exception ignore) {}
+        try { e.setEmergencyContactName(rs.getString("emergency_contact_name")); } catch(Exception ignore) {}
+        try { e.setEmergencyContactPhone(rs.getString("emergency_contact_phone")); } catch(Exception ignore) {}
+
+        return e;
+    }
+
     //Search methods
     public Employee findByID(int emp_ID) {
-        //Queries the database for an employee with the given ID and returns an Employee object
-        try(Connection conn = dbConnector.getConnection()){
-            String query = "SELECT e.emp_id, e.first_name, e.last_name, c.classification " +
-                       "FROM employees e " + "JOIN credentials c ON e.emp_id = c.emp_id " + "WHERE e.emp_id = ?";
+        try (Connection conn = dbConnector.getConnection()) {
+            String query = "SELECT e.*, c.classification FROM employees e LEFT JOIN credentials c ON e.emp_id = c.emp_id WHERE e.emp_id = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, emp_ID);
-            ResultSet rs = stmt.executeQuery();
-
-            if(rs.next()) {
-                String first_name = rs.getString("first_name");
-                String last_name = rs.getString("last_name");
-                String classification = rs.getString("classification");
-                int roleID = classification.equals("Admin") ? 1 : 0;
-                if (roleID == 1) {
-                    return new HRAdmin(roleID, emp_ID, first_name, last_name);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapRowToEmployee(rs);
                 } else {
-                    return new Employee(roleID, emp_ID, first_name, last_name);
+                    System.out.println("Employee with ID " + emp_ID + " not found.");
+                    return null;
                 }
-            } else {
-                System.out.println("Employee with ID " + emp_ID + " not found.");
-                return null;
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             System.out.println("Error retrieving employee with ID " + emp_ID);
-            e.printStackTrace();
+            ex.printStackTrace();
             return null;
         }
-
     }
 
     public Employee findByName(String name) {
-        try(Connection conn = dbConnector.getConnection()){
-            String query = "SELECT e.emp_id, e.first_name, e.last_name, c.classification " +
-                           "FROM employees e " +
-                           "JOIN credentials c ON e.emp_id = c.emp_id " +
-                           "WHERE CONCAT(e.first_name, ' ', e.last_name) = ?";
+        try (Connection conn = dbConnector.getConnection()) {
+            String query = "SELECT e.*, c.classification FROM employees e LEFT JOIN credentials c ON e.emp_id = c.emp_id WHERE CONCAT(e.first_name, ' ', e.last_name) = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, name);
-
-            ResultSet rs = stmt.executeQuery();
-
-            if(rs.next()) {
-                int emp_id = rs.getInt("emp_id");
-                String first_name = rs.getString("first_name");
-                String last_name = rs.getString("last_name");
-                String classification = rs.getString("classification");
-                int roleID = classification.equals("Admin") ? 1 : 0;
-                if (roleID == 1) {
-                    return new HRAdmin(roleID, emp_id, first_name, last_name);
-                } else {
-                    return new Employee(roleID, emp_id, first_name, last_name);
-                }
-            } else {
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) return mapRowToEmployee(rs);
                 System.out.println("Employee with name " + name + " not found.");
                 return null;
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             System.out.println("Error retrieving employee with name " + name);
-            e.printStackTrace();
+            ex.printStackTrace();
             return null;
         }
     }
 
     public Employee findByDateOfBirth(String dob) {
-        try(Connection conn = dbConnector.getConnection()){
-            String query = "SELECT e.emp_id, e.first_name, e.last_name, c.classification " +
-                           "FROM employees e " +
-                           "JOIN credentials c ON e.emp_id = c.emp_id " +
-                           "WHERE e.dob = ?";
+        try (Connection conn = dbConnector.getConnection()) {
+            String query = "SELECT e.*, c.classification FROM employees e LEFT JOIN credentials c ON e.emp_id = c.emp_id WHERE e.dob = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, dob);
-
-            ResultSet rs = stmt.executeQuery();
-
-            if(rs.next()) {
-                int emp_id = rs.getInt("emp_id");
-                String first_name = rs.getString("first_name");
-                String last_name = rs.getString("last_name");
-                String classification = rs.getString("classification");
-                int roleID = classification.equals("Admin") ? 1 : 0;
-                if (roleID == 1) {
-                    return new HRAdmin(roleID, emp_id, first_name, last_name);
-                } else {
-                    return new Employee(roleID, emp_id, first_name, last_name);
-                }
-            } else {
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) return mapRowToEmployee(rs);
                 System.out.println("Employee with date of birth " + dob + " not found.");
                 return null;
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             System.out.println("Error retrieving employee with date of birth " + dob);
-            e.printStackTrace();
+            ex.printStackTrace();
             return null;
         }
     }
 
     public Employee findBySSN(String ssn) {
-        try(Connection conn = dbConnector.getConnection()){
-            String query = "SELECT e.emp_id, e.first_name, e.last_name, c.classification " +
-                           "FROM employees e " +
-                           "JOIN credentials c ON e.emp_id = c.emp_id " +
-                           "WHERE e.ssn = ?";
+        try (Connection conn = dbConnector.getConnection()) {
+            String query = "SELECT e.*, c.classification FROM employees e LEFT JOIN credentials c ON e.emp_id = c.emp_id WHERE e.ssn = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, ssn);
-
-            ResultSet rs = stmt.executeQuery();
-
-            if(rs.next()) {
-                int emp_id = rs.getInt("emp_id");
-                String first_name = rs.getString("first_name");
-                String last_name = rs.getString("last_name");
-                String classification = rs.getString("classification");
-                int roleID = classification.equals("Admin") ? 1 : 0;
-                if (roleID == 1) {
-                    return new HRAdmin(roleID, emp_id, first_name, last_name);
-                } else {
-                    return new Employee(roleID, emp_id, first_name, last_name);
-                }
-            } else {
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) return mapRowToEmployee(rs);
                 System.out.println("Employee with SSN " + ssn + " not found.");
                 return null;
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             System.out.println("Error retrieving employee with SSN " + ssn);
-            e.printStackTrace();
+            ex.printStackTrace();
             return null;
         }
     }
 
     public List<Employee> findAll() {
         List<Employee> employees = new ArrayList<>();
-        try(Connection conn = dbConnector.getConnection()){
-            String query = "SELECT e.emp_id, e.first_name, e.last_name, c.classification " +
-                           "FROM employees e " +
-                           "JOIN credentials c ON e.emp_id = c.emp_id";
+        try (Connection conn = dbConnector.getConnection()) {
+            String query = "SELECT e.*, c.classification FROM employees e LEFT JOIN credentials c ON e.emp_id = c.emp_id";
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-            while(rs.next()) {
-                int emp_id = rs.getInt("emp_id");
-                String first_name = rs.getString("first_name");
-                String last_name = rs.getString("last_name");
-                String classification = rs.getString("classification");
-                int roleID = classification.equals("Admin") ? 1 : 0;
-                if (roleID == 1) {
-                    employees.add(new HRAdmin(roleID, emp_id, first_name, last_name));
-                } else {
-                    employees.add(new Employee(roleID, emp_id, first_name, last_name));
+            try (ResultSet rs = stmt.executeQuery(query)) {
+                while (rs.next()) {
+                    employees.add(mapRowToEmployee(rs));
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             System.out.println("Error retrieving all employees");
-            e.printStackTrace();
+            ex.printStackTrace();
         }
         return employees;
     }
