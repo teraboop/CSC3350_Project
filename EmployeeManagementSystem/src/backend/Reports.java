@@ -8,6 +8,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Reports {
+    /**
+     * Retrieves all payroll records for the given employee and returns them
+     * as a formatted table string.
+     *
+     * @param emp the employee whose payment history to retrieve
+     * @return a formatted string of payroll records, or {@code null} if no
+     *         records are found or an error occurs
+     */
     public String getPaymentInfo(Employee emp) {
         StringBuilder output = new StringBuilder();
         String header = String.format("%-15s %-10s %-12s %-10s %-15s %-10s %-10s %-10s%n",
@@ -50,6 +58,17 @@ public class Reports {
         return output.toString();
     }
 
+    /**
+     * Retrieves payroll records for a given month and year for all employees
+     * sharing a specific job title. Requires admin privileges.
+     *
+     * @param titleID the job title ID to filter employees by
+     * @param month   the target month (1-12)
+     * @param year    the target year
+     * @param emp     the employee making the request (must be an admin)
+     * @return a formatted string of payroll records, or {@code null} if the
+     *         requester lacks admin privileges, no records are found, or an error occurs
+     */
     public String getMonthlyPayTitle(int titleID, int month, int year, Employee emp){
         if(emp.getClassify() == false){
             return null;
@@ -116,6 +135,17 @@ public class Reports {
         return output.toString();
     }
 
+    /**
+     * Retrieves payroll records for a given month and year for all employees
+     * in a specific division. Requires admin privileges.
+     *
+     * @param divID the division ID to filter employees by
+     * @param month the target month (1-12)
+     * @param year  the target year
+     * @param emp   the employee making the request (must be an admin)
+     * @return a formatted string of payroll records, or {@code null} if the
+     *         requester lacks admin privileges, no records are found, or an error occurs
+     */
     public String getMonthlyPayDiv(int divID, int month, int year, Employee emp){
         if(emp.getClassify() == false){
             return null;
@@ -182,6 +212,18 @@ public class Reports {
         return output.toString();
     }
 
+    /**
+     * Retrieves all employees hired within the given date range (inclusive).
+     * Requires admin privileges.
+     *
+     * @param startMonth the start month of the hire date range (1-12)
+     * @param startYear  the start year of the hire date range
+     * @param endMonth   the end month of the hire date range (1-12)
+     * @param endYear    the end year of the hire date range
+     * @param emp        the employee making the request (must be an admin)
+     * @return a formatted string listing all new hires in the range, or {@code null}
+     *         if the requester lacks admin privileges, no records are found, or an error occurs
+     */
     public String newHires(int startMonth, int startYear, int endMonth, int endYear, Employee emp){
         if(emp.getClassify() == false){
             return null;

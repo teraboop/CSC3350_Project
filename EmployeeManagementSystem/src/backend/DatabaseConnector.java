@@ -5,6 +5,13 @@ import java.sql.*;
 import java.util.Properties;
 
 public class DatabaseConnector {
+    /**
+     * Creates and returns a new database connection using credentials loaded
+     * from {@code config.properties}.
+     *
+     * @return a {@link Connection} to the configured database,
+     *         or {@code null} if the connection cannot be established
+     */
     public Connection getConnection() {
         Properties prop = new Properties();
         

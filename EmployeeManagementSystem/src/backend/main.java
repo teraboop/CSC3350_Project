@@ -1,6 +1,12 @@
 package backend;
 
 public class main {
+    /**
+     * Entry point for manual testing of backend components.
+     *
+     * @param args command-line arguments (not used)
+     * @throws Exception if any backend operation fails
+     */
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
         Reports test = new Reports();
