@@ -23,6 +23,15 @@
         "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jdk.jsobject.jar",
         "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jfx.incubator.input.jar",
         "EmployeeManagementSystem/lib/javafx-sdk-26/lib/jfx.incubator.richtext.jar",
-        "EmployeeManagementSystem/lib/mysql-connector-j-9.1.0.jar"
+        "EmployeeManagementSystem/lib/mysql-connector-j-9.1.0.jar",
+        "EmployeeManagementSystem/lib/junit-platform-console-standalone-1.13.0-M3.jar",
+        "EmployeeManagementSystem/lib/junit-jupiter-api-5.14.3.jar",
+        "EmployeeManagementSystem/lib/byte-buddy-1.18.8.jar",
+        "EmployeeManagementSystem/lib/objenesis-3.5.jar",
+        "EmployeeManagementSystem/lib/mockito-core-5.23.0.jar",
+        "EmployeeManagementSystem/lib/mockito-core-5.11.0.jar",
+        "EmployeeManagementSystem/lib/byte-buddy-1.14.18.jar",
+        "EmployeeManagementSystem/lib/objenesis-3.3.jar",
+        "EmployeeManagementSystem/lib/byte-buddy-agent-1.14.12.jar"
     ]
 }

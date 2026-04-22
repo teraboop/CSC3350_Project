@@ -5,10 +5,10 @@ import java.util.Base64;
 import java.nio.charset.StandardCharsets;
 
 public class Authorization {
-    private DatabaseConnector dbConnector;
+    private IDataSource dbConnector;
     private Employee currentUser;
     
-    public Authorization(DatabaseConnector dbConnector) {
+    public Authorization(IDataSource dbConnector) {
         this.dbConnector = dbConnector;
     }
     /**
@@ -30,11 +30,29 @@ public class Authorization {
         }
     }
 
+    /**
+     * Verifies a plaintext password against a stored hash by hashing the input
+     * and comparing it to the stored value.
+     *
+     * @param inputPassword the plaintext password provided by the user
+     * @param storedHash    the Base64-encoded SHA-256 hash stored in the database
+     * @return {@code true} if the hashed input matches the stored hash, {@code false} otherwise
+     */
     private boolean verifyPassword(String inputPassword, String storedHash) {
         String inputHash = hashPassword(inputPassword);
         return inputHash != null && inputHash.equals(storedHash);
     }
 
+    /**
+     * Authenticates a user with the given username and password.
+     * If authentication succeeds, the user is set as the current session user.
+     *
+     * @param username the username of the employee attempting to log in
+     * @param password the plaintext password to authenticate
+     * @return the authenticated {@link Employee} or {@link HRAdmin} object on success,
+     *         or {@code null} if the username is not found, the password is incorrect,
+     *         or an error occurs
+     */
     public Employee login(String username, String password) {
         try (Connection conn = dbConnector.getConnection()){
             String query = "SELECT emp_ID, password_hash FROM credentials WHERE username = ?";
@@ -68,6 +86,15 @@ public class Authorization {
         }
     }
 
+    /**
+     * Fetches an employee record from the database by their employee ID and
+     * returns the appropriate object type based on their classification.
+     *
+     * @param emp_ID the unique identifier of the employee to fetch
+     * @return an {@link HRAdmin} if the employee has Admin classification,
+     *         an {@link Employee} otherwise, or {@code null} if not found or an error occurs
+     * @throws SQLException if a database access error occurs
+     */
     private Employee fetchEmployee(int emp_ID) throws SQLException {
         try(Connection conn = dbConnector.getConnection()){
             String query = "SELECT e.emp_ID, e.first_name, e.last_name, c.classification FROM employees e " +
@@ -96,6 +123,11 @@ public class Authorization {
         return null; 
     }
 
+    /**
+     * Logs out the currently authenticated user by clearing the session.
+     *
+     * @return {@code null} after the current user has been cleared
+     */
     public Employee logout() {
 
         if (currentUser != null) {
@@ -107,6 +139,12 @@ public class Authorization {
         return currentUser;
     }
 
+    /**
+     * Returns the currently authenticated user for this session.
+     *
+     * @return the current {@link Employee} or {@link HRAdmin} object,
+     *         or {@code null} if no user is logged in
+     */
     public Employee getCurrentUser() {
         return currentUser;
     }
