@@ -41,9 +41,23 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 
 public class Controller {
     @FXML private TabPane mainTabPane;
+    @FXML private TextField empIDProfile;
+    @FXML private TextField firstNameProfile;
+    @FXML private TextField lastNameProfile;
+    @FXML private TextField emailProfile;
+    @FXML private TextField hireDateProfile;
+    @FXML private TextField salaryProfile;
+    @FXML private TextField ssnProfile;
+    @FXML private javafx.scene.control.TextArea addressProfile;
+    @FXML private TextField DOBProfile;
+    @FXML private TextField phoneProfile;
+    @FXML private TextField emergencyNameProfile;
+    @FXML private TextField emergencyPhoneProfile;
+
     //PAY HISTORY CONNECTORS
     @FXML private Button generatePaymentReportButton;  // Reference to the button (optional, for future use)
     @FXML private TextArea paymentReportTextArea;  // Reference to the TextArea for displaying the report
+    @FXML private Button logoutButton;
 
     //PAYROLL REPORTS CONNECTORS
     @FXML private TextArea payrollReportTextArea; 
@@ -140,7 +154,7 @@ public class Controller {
         });
     }
 
-        // 3. Setup Power Bar Dropdown
+        // Setup Power Bar Dropdown
         if (searchTypeCombo != null) {
             searchTypeCombo.getItems().addAll("All", "Name", "EmpID", "SSN", "DOB");
             searchTypeCombo.setValue("All");
@@ -156,7 +170,27 @@ public class Controller {
             });
         }
     }
-
+    //PROFILE HANDLER
+    @FXML private void handleGenerateProfileInfo() {
+        if (currentEmployee == null) {
+            System.out.println("Error: No employee logged in.");
+            return;
+        }
+        if(mainTabPane != null && empIDProfile != null){
+            empIDProfile.setText(String.valueOf(currentEmployee.getEmpID()));
+            firstNameProfile.setText(currentEmployee.getFirstName());
+            lastNameProfile.setText(currentEmployee.getLastName());
+            emailProfile.setText(currentEmployee.getEmail());
+            hireDateProfile.setText(currentEmployee.getEmploymentDate());
+            salaryProfile.setText(String.valueOf(currentEmployee.getSalary()));
+            ssnProfile.setText(currentEmployee.getSSN());
+            addressProfile.setText(currentEmployee.getAddress());
+            DOBProfile.setText(currentEmployee.getDob());
+            phoneProfile.setText(currentEmployee.getPhoneNumber());
+            emergencyNameProfile.setText(currentEmployee.getEmergencyContactName());
+            emergencyPhoneProfile.setText(currentEmployee.getEmergencyContactPhone());
+        }
+    }
     //PAYMENT HISTORY HANDLER
     @FXML
     private void handleGeneratePaymentReport(ActionEvent event) {
@@ -684,6 +718,8 @@ private void setupTableSelection() {
     // Method to set the current employee (call this after login)
     public void setCurrentEmployee(Employee employee) {
         this.currentEmployee = employee;
+        // Populate profile fields once the current employee is set
+        handleGenerateProfileInfo();
     }
 
     @FXML
@@ -712,6 +748,23 @@ private void setupTableSelection() {
             }
         } else {
             loginErrorText.setText("Invalid username or password.");
+        }
+    }
+
+    @FXML
+    private void handleLogout(ActionEvent event){
+        // Clear current session
+        this.currentEmployee = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("loginscreen.fxml"));
+            Parent loginRoot = loader.load();
+
+            // Show login screen
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            stage.setScene(new Scene(loginRoot, 800, 600));
+            stage.setTitle("Login - Employee Management System");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
