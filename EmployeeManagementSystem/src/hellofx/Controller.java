@@ -80,6 +80,19 @@ public class Controller {
     @FXML private TableColumn<Employee, String> colEmergencyPhone; // SQL index 12
     @FXML private Tab searchTab;
 
+    //ADD EMPLOYEE CONNECTORS
+    @FXML private TextField addFirstName;
+    @FXML private TextField addLastName;
+    @FXML private TextField addEmail;
+    @FXML private TextField addEmploymentDate;
+    @FXML private TextField addSalary;
+    @FXML private TextField addSSN;
+    @FXML private TextField addAddressID;
+    @FXML private TextField addDOB;
+    @FXML private TextField addPhone;
+    @FXML private TextField addEmergencyName;
+    @FXML private TextField addEmergencyPhone;
+
     @FXML private TextField usernameField;  // Reference to the username input field
     @FXML private PasswordField passwordField;  // Reference to the password input field
     @FXML private Text loginErrorText;
@@ -405,6 +418,64 @@ private void setupTableSelection() {
         return row;
     });
 }
+
+    //ADD EMPLOYEE HANDLER
+    @FXML
+    private void handleCreateEmployee(ActionEvent event) {
+        if (currentEmployee == null || !currentEmployee.getClassify()) {
+            System.out.println("Access denied: must be an admin to add employees.");
+            return;
+        }
+
+        String firstName = addFirstName.getText().trim();
+        String lastName = addLastName.getText().trim();
+        String email = addEmail.getText().trim();
+        String employmentDate = addEmploymentDate.getText().trim();
+        String salaryText = addSalary.getText().trim();
+        String ssn = addSSN.getText().trim();
+        String addressIDText = addAddressID.getText().trim();
+        String dob = addDOB.getText().trim();
+        String phone = addPhone.getText().trim();
+        String emergencyName = addEmergencyName.getText().trim();
+        String emergencyPhone = addEmergencyPhone.getText().trim();
+
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || employmentDate.isEmpty()
+                || salaryText.isEmpty() || ssn.isEmpty() || addressIDText.isEmpty()
+                || dob.isEmpty() || phone.isEmpty()) {
+            System.out.println("Error: All required fields must be filled.");
+            return;
+        }
+
+        double salary;
+        int addressID;
+        try {
+            salary = Double.parseDouble(salaryText);
+            addressID = Integer.parseInt(addressIDText);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Salary and Address ID must be numeric.");
+            return;
+        }
+
+        Employee newEmployee = new Employee(0, 0, firstName, lastName);
+        newEmployee.setEmail(email);
+        newEmployee.setEmploymentDate(employmentDate);
+        newEmployee.setSalary(salary);
+        newEmployee.setSSN(ssn);
+        newEmployee.setAddressID(addressID);
+        newEmployee.setDob(dob);
+        newEmployee.setPhoneNumber(phone);
+        newEmployee.setEmergencyContactName(emergencyName);
+        newEmployee.setEmergencyContactPhone(emergencyPhone);
+
+        EmployeeRepository repo = new EmployeeRepository();
+        repo.save(newEmployee);
+
+        // Clear fields after save
+        addFirstName.clear(); addLastName.clear(); addEmail.clear();
+        addEmploymentDate.clear(); addSalary.clear(); addSSN.clear();
+        addAddressID.clear(); addDOB.clear(); addPhone.clear();
+        addEmergencyName.clear(); addEmergencyPhone.clear();
+    }
 
     @FXML
     private void handleSearch() {
