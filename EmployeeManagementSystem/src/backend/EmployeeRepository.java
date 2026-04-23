@@ -243,6 +243,35 @@ public class EmployeeRepository {
     }
 
     /**
+     * Retrieves all employees whose salary falls within [{@code lowerBound}, {@code upperBound}] (inclusive).
+     *
+     * @param lowerBound the minimum salary of the range
+     * @param upperBound the maximum salary of the range
+     * @return a {@link List} of matching {@link Employee} objects, or an empty list if none found
+     */
+    public List<Employee> findBySalaryRange(double lowerBound, double upperBound) {
+        List<Employee> results = new ArrayList<>();
+        try (Connection conn = dbConnector.getConnection()) {
+            String query = "SELECT emp_id, first_name, last_name, email, hire_date, salary, ssn, " +
+                           "address_id, dob, phone, emergency_contact_name, emergency_contact_phone " +
+                           "FROM employees WHERE salary >= ? AND salary <= ?";
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setDouble(1, lowerBound);
+                stmt.setDouble(2, upperBound);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        results.add(mapRowToEmployee(rs));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error finding employees by salary range.");
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    /**
      * Updates the salary of all employees whose current salary falls within
      * [{@code lowerBound}, {@code upperBound}] (inclusive) by applying a
      * percentage adjustment, then returns the list of affected employees with

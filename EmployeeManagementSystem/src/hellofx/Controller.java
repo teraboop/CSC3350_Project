@@ -97,6 +97,7 @@ public class Controller {
     @FXML private TextField salaryUpperBound;
     @FXML private TextField salaryLowerBound;
     @FXML private TextField salaryAdjustPercent;
+    @FXML private Button salaryUpdateButton;
     @FXML private TableView<Employee> employeeTable1;
     @FXML private TableColumn<Employee, Integer> colEmpID1;
     @FXML private TableColumn<Employee, String>  colFirstName1;
@@ -116,6 +117,7 @@ public class Controller {
     @FXML private Text loginErrorText;
 
     private Employee currentEmployee;  // The logged-in employee
+    private boolean salaryUpdateReady = false;  // Two-phase salary update state
 
     public void initialize() {
     // Existing initialization code...
@@ -543,19 +545,32 @@ private void setupTableSelection() {
         }
 
         EmployeeRepository repo = new EmployeeRepository();
-        java.util.List<Employee> affected = repo.updateSalariesInRange(lower, upper, percent);
 
-        if (employeeTable1 != null) {
-            setupSalaryColumns();
-            employeeTable1.getItems().clear();
-            if (!affected.isEmpty()) {
-                employeeTable1.getItems().addAll(affected);
+        if (!salaryUpdateReady) {
+            // Phase 1: Display employees in range
+            java.util.List<Employee> preview = repo.findBySalaryRange(lower, upper);
+            if (employeeTable1 != null) {
+                setupSalaryColumns();
+                employeeTable1.getItems().clear();
+                employeeTable1.getItems().addAll(preview);
             }
+            salaryUpdateReady = true;
+            salaryUpdateButton.setText("Update");
+        } else {
+            // Phase 2: Perform update and show new values
+            java.util.List<Employee> updated = repo.updateSalariesInRange(lower, upper, percent);
+            if (employeeTable1 != null) {
+                setupSalaryColumns();
+                employeeTable1.getItems().clear();
+                employeeTable1.getItems().addAll(updated);
+            }
+            // Reset state
+            salaryUpdateReady = false;
+            salaryUpdateButton.setText("Display");
+            salaryUpperBound.clear();
+            salaryLowerBound.clear();
+            salaryAdjustPercent.clear();
         }
-
-        salaryUpperBound.clear();
-        salaryLowerBound.clear();
-        salaryAdjustPercent.clear();
     }
 
     @FXML
