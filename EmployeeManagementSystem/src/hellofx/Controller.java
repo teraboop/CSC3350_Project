@@ -350,20 +350,29 @@ public class Controller {
         // 3. Logic for Save
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == saveButtonType) {
-                // Update Name
+                // Update name
                 employee.setFirstName(firstNameField.getText());
                 employee.setLastName(lastNameField.getText());
 
-                // Handle Requirement #5 (Percentage Raise logic)
+                // Update base salary from the salary field
+                try {
+                    double baseSalary = Double.parseDouble(salaryField.getText());
+                    employee.setSalary(baseSalary);
+                } catch (NumberFormatException ignore) {}
+
+                // Apply percentage raise on top of the (possibly updated) salary
                 if (!raisePercentField.getText().isEmpty()) {
-                    double percent = Double.parseDouble(raisePercentField.getText());
-                    // Call your backend method here:
-                    // backend.applyPercentageRaise(employee, percent);
+                    try {
+                        double percent = Double.parseDouble(raisePercentField.getText());
+                        double newSalary = employee.getSalary() * (1 + percent / 100.0);
+                        employee.setSalary(newSalary);
+                    } catch (NumberFormatException ignore) {}
                 }
-                
-                // Call your backend SQL update here
-                // backend.updateEmployeeInDB(employee);
-                
+
+                // Persist changes to the database
+                EmployeeRepository repo = new EmployeeRepository();
+                repo.update(employee);
+
                 return dialogButton;
             }
             return null;
