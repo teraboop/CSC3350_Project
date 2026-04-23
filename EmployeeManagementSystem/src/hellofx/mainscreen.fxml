@@ -24,9 +24,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.Controller">
+<StackPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.Controller">
    <children>
-      <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" tabMinWidth="80.0">
+      <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" tabMinWidth="80.0" StackPane.alignment="TOP_LEFT">
          <tabs>
             <Tab text="Profile">
                <content>
@@ -259,41 +259,46 @@
             </Tab>
             <Tab text="Admin Tools">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0">
                      <children>
-                        <TabPane prefHeight="372.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <tabs>
                             <Tab text="Add Employee">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <GridPane layoutX="-2.0" layoutY="-1.0" prefHeight="243.0" prefWidth="586.0">
-                                            <columnConstraints>
-                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
+                                          <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <padding><Insets bottom="10.0" left="10.0" right="10.0" top="10.0" /></padding>
                                              <children>
-                                                <TextField fx:id="addFirstName" promptText="First Name" />
-                                                <TextField fx:id="addLastName" promptText="Last Name" GridPane.columnIndex="1" />
-                                                <TextField fx:id="addEmail" promptText="email@example.com" GridPane.columnIndex="2" />
-                                                <TextField fx:id="addEmploymentDate" promptText="Employment Date (YYYY-MM-DD)" GridPane.rowIndex="1" />
-                                                <TextField fx:id="addSalary" promptText="Salary" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                <TextField fx:id="addSSN" promptText="SSN" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                                <TextField fx:id="addAddressID" promptText="Address ID" GridPane.rowIndex="2" />
-                                                <TextField fx:id="addDOB" promptText="DOB (YYYY-MM-DD)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                <TextField fx:id="addPhone" promptText="Phone" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                                                <TextField fx:id="addEmergencyName" promptText="Emergency Contact Name" GridPane.rowIndex="3" />
-                                                <TextField fx:id="addEmergencyPhone" promptText="Emergency Contact Phone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <GridPane hgap="10.0" vgap="10.0" VBox.vgrow="ALWAYS">
+                                                  <columnConstraints>
+                                                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                                  </columnConstraints>
+                                                  <rowConstraints>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  </rowConstraints>
+                                                  <children>
+                                                    <TextField fx:id="addFirstName" promptText="First Name" maxWidth="Infinity" GridPane.hgrow="ALWAYS" />
+                                                    <TextField fx:id="addLastName" promptText="Last Name" maxWidth="Infinity" GridPane.hgrow="ALWAYS" GridPane.columnIndex="1" />
+                                                    <TextField fx:id="addEmail" promptText="email@example.com" maxWidth="Infinity" GridPane.hgrow="ALWAYS" GridPane.columnIndex="2" />
+                                                    <TextField fx:id="addEmploymentDate" promptText="Employment Date (YYYY-MM-DD)" maxWidth="Infinity" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                                    <TextField fx:id="addSalary" promptText="Salary" maxWidth="Infinity" GridPane.hgrow="ALWAYS" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                    <TextField fx:id="addSSN" promptText="SSN" maxWidth="Infinity" GridPane.hgrow="ALWAYS" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                    <TextField fx:id="addAddressID" promptText="Address ID" maxWidth="Infinity" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                                                    <TextField fx:id="addDOB" promptText="DOB (YYYY-MM-DD)" maxWidth="Infinity" GridPane.hgrow="ALWAYS" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                    <TextField fx:id="addPhone" promptText="Phone" maxWidth="Infinity" GridPane.hgrow="ALWAYS" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                    <TextField fx:id="addEmergencyName" promptText="Emergency Contact Name" maxWidth="Infinity" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                                                    <TextField fx:id="addEmergencyPhone" promptText="Emergency Contact Phone" maxWidth="Infinity" GridPane.hgrow="ALWAYS" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                  </children>
+                                                </GridPane>
+                                                <Button mnemonicParsing="false" onAction="#handleCreateEmployee" text="Create" maxWidth="Infinity" />
                                              </children>
-                                          </GridPane>
-                                          <Button layoutX="271.0" layoutY="278.0" mnemonicParsing="false" onAction="#handleCreateEmployee" text="Create" />
+                                          </VBox>
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -301,45 +306,45 @@
                             <Tab text="Salary Adjustment">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <VBox layoutX="14.0" layoutY="14.0" prefHeight="228.0" prefWidth="150.0">
-                                             <children>
-                                                <StackPane layoutX="10.0" layoutY="10.0" prefHeight="74.0" prefWidth="150.0">
-                                                   <children>
-                                                      <TextField fx:id="salaryUpperBound" prefHeight="26.0" prefWidth="158.0" promptText="Upper Salary Bound" />
-                                                   </children>
-                                                </StackPane>
-                                                <StackPane prefHeight="68.0" prefWidth="150.0">
-                                                   <children>
-                                                      <TextField fx:id="salaryLowerBound" prefHeight="26.0" prefWidth="181.0" promptText="Lower Salary Bound" />
-                                                   </children>
-                                                </StackPane>
-                                                <StackPane layoutX="10.0" layoutY="84.0" prefHeight="72.0" prefWidth="150.0">
-                                                   <children>
-                                                      <TextField fx:id="salaryAdjustPercent" prefHeight="26.0" prefWidth="181.0" promptText="Salary Adjustment %" />
-                                                   </children>
-                                                </StackPane>
-                                             </children>
-                                          </VBox>
-                                          <Button fx:id="salaryUpdateButton" layoutX="44.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleUpdateSalary" text="Display" />
-                                          <TableView fx:id="employeeTable1" layoutX="170.0" layoutY="-1.0" prefHeight="337.0" prefWidth="430.0">
-                                             <columns>
-                                                <TableColumn fx:id="colEmpID1" prefWidth="75.0" text="ID" />
-                                                <TableColumn fx:id="colFirstName1" prefWidth="75.0" text="Fname" />
-                                                <TableColumn fx:id="colLastName1" prefWidth="75.0" text="Lname" />
-                                                <TableColumn fx:id="colEmail1" prefWidth="75.0" text="Email" />
-                                                <TableColumn fx:id="colEmploymentDate1" prefWidth="75.0" text="Employment Date" />
-                                                <TableColumn fx:id="colSalary1" prefWidth="75.0" text="Salary" />
-                                                <TableColumn fx:id="colSSN1" prefWidth="75.0" text="SSN" />
-                                                <TableColumn fx:id="colAddressID1" prefWidth="75.0" text="Address ID" />
-                                                <TableColumn fx:id="colDOB1" prefWidth="75.0" text="DOB" />
-                                                <TableColumn fx:id="colPhone1" prefWidth="75.0" text="Phone" />
-                                                <TableColumn fx:id="colEmergencyName1" prefWidth="75.0" text="Emergency Name" />
-                                                <TableColumn fx:id="colEmergencyPhone1" prefWidth="75.0" text="Emergency Phone" />
-                                             </columns>
-                                          </TableView>
-                                       </children>
-                                    </AnchorPane>
+                                  <children>
+                                    <SplitPane dividerPositions="0.25" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0">
+                                          <children>
+                                            <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                              <children>
+                                                <TextField fx:id="salaryUpperBound" promptText="Upper Salary Bound" maxWidth="Infinity" />
+                                                <TextField fx:id="salaryLowerBound" promptText="Lower Salary Bound" maxWidth="Infinity" />
+                                                <TextField fx:id="salaryAdjustPercent" promptText="Salary Adjustment %" maxWidth="Infinity" />
+                                                <Button fx:id="salaryUpdateButton" mnemonicParsing="false" onAction="#handleUpdateSalary" text="Display" maxWidth="Infinity" />
+                                              </children>
+                                            </VBox>
+                                          </children>
+                                        </AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0">
+                                          <children>
+                                            <TableView fx:id="employeeTable1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                               <columns>
+                                                  <TableColumn fx:id="colEmpID1" prefWidth="75.0" text="ID" />
+                                                  <TableColumn fx:id="colFirstName1" prefWidth="75.0" text="Fname" />
+                                                  <TableColumn fx:id="colLastName1" prefWidth="75.0" text="Lname" />
+                                                  <TableColumn fx:id="colEmail1" prefWidth="75.0" text="Email" />
+                                                  <TableColumn fx:id="colEmploymentDate1" prefWidth="75.0" text="Employment Date" />
+                                                  <TableColumn fx:id="colSalary1" prefWidth="75.0" text="Salary" />
+                                                  <TableColumn fx:id="colSSN1" prefWidth="75.0" text="SSN" />
+                                                  <TableColumn fx:id="colAddressID1" prefWidth="75.0" text="Address ID" />
+                                                  <TableColumn fx:id="colDOB1" prefWidth="75.0" text="DOB" />
+                                                  <TableColumn fx:id="colPhone1" prefWidth="75.0" text="Phone" />
+                                                  <TableColumn fx:id="colEmergencyName1" prefWidth="75.0" text="Emergency Name" />
+                                                  <TableColumn fx:id="colEmergencyPhone1" prefWidth="75.0" text="Emergency Phone" />
+                                               </columns>
+                                            </TableView>
+                                          </children>
+                                        </AnchorPane>
+                                      </items>
+                                    </SplitPane>
+                                  </children>
+                                </AnchorPane>
                               </content>
                             </Tab>
                           </tabs>
