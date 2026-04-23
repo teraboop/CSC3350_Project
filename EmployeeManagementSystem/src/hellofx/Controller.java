@@ -378,29 +378,68 @@ public class Controller {
         grid.setVgap(10);
 
         // Splitting names (assumes your Employee object has separate getters or you split the string)
+        TextField empIDField = new TextField(String.valueOf(employee.getEmpID())); 
         TextField firstNameField = new TextField(employee.getFirstName()); 
         TextField lastNameField = new TextField(employee.getLastName());
+        TextField emailField = new TextField(employee.getEmail());
+        TextField hireDateField = new TextField(employee.getEmploymentDate());
         TextField salaryField = new TextField(String.valueOf(employee.getSalary()));
+        TextField ssnField = new TextField(employee.getSSN()); 
+        TextField addressIDField = new TextField(String.valueOf(employee.getAddressID())); 
+        TextField DOBField = new TextField(employee.getDob()); 
+        TextField phoneField = new TextField(employee.getPhoneNumber()); 
+        TextField emergencyNameField = new TextField(employee.getEmergencyContactName()); 
+        TextField emergencyPhoneField = new TextField(employee.getEmergencyContactPhone()); 
+
         TextField raisePercentField = new TextField();
         raisePercentField.setPromptText("Enter % (optional)");
-
-        grid.add(new Label("First Name:"), 0, 0);
-        grid.add(firstNameField, 1, 0);
-        grid.add(new Label("Last Name:"), 0, 1);
-        grid.add(lastNameField, 1, 1);
-        grid.add(new Label("Base Salary:"), 0, 2);
-        grid.add(salaryField, 1, 2);
-        grid.add(new Label("Apply Raise %:"), 0, 3);
-        grid.add(raisePercentField, 1, 3);
+        grid.add(new Label("Emp ID"), 0, 0);
+        grid.add(empIDField, 1, 0);
+        grid.add(new Label("First Name:"), 0, 1);
+        grid.add(firstNameField, 1, 1);
+        grid.add(new Label("Last Name:"), 0, 2);
+        grid.add(lastNameField, 1, 2);
+        grid.add(new Label("Base Salary:"), 0, 3);
+        grid.add(salaryField, 1, 3);
+        grid.add(new Label("Apply Raise %:"), 0, 4);
+        grid.add(raisePercentField, 1, 4);
+        grid.add(new Label("Email"), 0, 5);
+        grid.add(emailField, 1, 5);
+        grid.add(new Label("Hire Date"), 0, 6);
+        grid.add(hireDateField, 1, 6);
+        grid.add(new Label("SSN"), 0, 7);
+        grid.add(ssnField, 1, 7);
+        grid.add(new Label("Address ID"), 0, 8);
+        grid.add(addressIDField, 1, 8);
+        grid.add(new Label("Date of Birth"), 0, 9);
+        grid.add(DOBField, 1, 9);
+        grid.add(new Label("Phone Number"), 0, 10);
+        grid.add(phoneField, 1, 10);
+        grid.add(new Label("Emergency Name"), 0, 11);
+        grid.add(emergencyNameField, 1, 11);
+        grid.add(new Label("Emergency Phone"), 0, 12);
+        grid.add(emergencyPhoneField, 1, 12);
+        
 
         dialog.getDialogPane().setContent(grid);
 
         // 3. Logic for Save
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == saveButtonType) {
-                // Update name
+                // Update fields
+                employee.setEmpID(Integer.valueOf(empIDField.getText()));
                 employee.setFirstName(firstNameField.getText());
                 employee.setLastName(lastNameField.getText());
+                employee.setEmail(emailField.getText());
+                employee.setEmploymentDate(hireDateField.getText());
+                employee.setSSN(ssnField.getText());
+                employee.setAddressID(Integer.valueOf(addressIDField.getText()));
+                employee.setDob(DOBField.getText());
+                employee.setPhoneNumber(phoneField.getText());
+                employee.setEmergencyContactName(emergencyNameField.getText());
+                employee.setEmergencyContactPhone(emergencyPhoneField.getText());
+                
+
 
                 // Update base salary from the salary field
                 try {
