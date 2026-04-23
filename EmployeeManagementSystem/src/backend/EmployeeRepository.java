@@ -242,6 +242,54 @@ public class EmployeeRepository {
         }
     }
 
+    /**
+     * Updates the salary of all employees whose current salary falls within
+     * [{@code lowerBound}, {@code upperBound}] (inclusive) by applying a
+     * percentage adjustment, then returns the list of affected employees with
+     * their new salaries reflected.
+     *
+     * @param lowerBound      the minimum salary of the range to adjust
+     * @param upperBound      the maximum salary of the range to adjust
+     * @param adjustPercent   the percentage to adjust salaries by (e.g. 10.0 = +10%, -5.0 = -5%)
+     * @return a {@link List} of {@link Employee} objects whose salaries were updated,
+     *         or an empty list if none matched or an error occurred
+     */
+    public List<Employee> updateSalariesInRange(double lowerBound, double upperBound, double adjustPercent) {
+        List<Employee> updated = new ArrayList<>();
+        try (Connection conn = dbConnector.getConnection()) {
+            // First, collect all employees in range
+            String selectQuery = "SELECT e.emp_id, e.first_name, e.last_name, e.email, e.hire_date, " +
+                                 "e.salary, e.ssn, e.address_id, e.dob, e.phone, " +
+                                 "e.emergency_contact_name, e.emergency_contact_phone " +
+                                 "FROM employees e WHERE e.salary >= ? AND e.salary <= ?";
+            try (PreparedStatement selectStmt = conn.prepareStatement(selectQuery)) {
+                selectStmt.setDouble(1, lowerBound);
+                selectStmt.setDouble(2, upperBound);
+                try (ResultSet rs = selectStmt.executeQuery()) {
+                    while (rs.next()) {
+                        Employee e = mapRowToEmployee(rs);
+                        double newSalary = e.getSalary() * (1 + adjustPercent / 100.0);
+                        e.setSalary(newSalary);
+                        updated.add(e);
+                    }
+                }
+            }
+            // Then batch-update all their salaries
+            String updateQuery = "UPDATE employees SET salary = ROUND(salary * ?, 2) " +
+                                 "WHERE salary >= ? AND salary <= ?";
+            try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
+                updateStmt.setDouble(1, 1 + adjustPercent / 100.0);
+                updateStmt.setDouble(2, lowerBound);
+                updateStmt.setDouble(3, upperBound);
+                updateStmt.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Error updating salaries in range.");
+            e.printStackTrace();
+        }
+        return updated;
+    }
+
     //Utility methods
 
     /**

@@ -93,6 +93,24 @@ public class Controller {
     @FXML private TextField addEmergencyName;
     @FXML private TextField addEmergencyPhone;
 
+    //SALARY ADJUSTMENT CONNECTORS
+    @FXML private TextField salaryUpperBound;
+    @FXML private TextField salaryLowerBound;
+    @FXML private TextField salaryAdjustPercent;
+    @FXML private TableView<Employee> employeeTable1;
+    @FXML private TableColumn<Employee, Integer> colEmpID1;
+    @FXML private TableColumn<Employee, String>  colFirstName1;
+    @FXML private TableColumn<Employee, String>  colLastName1;
+    @FXML private TableColumn<Employee, String>  colEmail1;
+    @FXML private TableColumn<Employee, String>  colEmploymentDate1;
+    @FXML private TableColumn<Employee, Double>  colSalary1;
+    @FXML private TableColumn<Employee, String>  colSSN1;
+    @FXML private TableColumn<Employee, Integer> colAddressID1;
+    @FXML private TableColumn<Employee, String>  colDOB1;
+    @FXML private TableColumn<Employee, String>  colPhone1;
+    @FXML private TableColumn<Employee, String>  colEmergencyName1;
+    @FXML private TableColumn<Employee, String>  colEmergencyPhone1;
+
     @FXML private TextField usernameField;  // Reference to the username input field
     @FXML private PasswordField passwordField;  // Reference to the password input field
     @FXML private Text loginErrorText;
@@ -328,6 +346,21 @@ public class Controller {
         colEmergencyPhone.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getEmergencyContactPhone()));
     }
 
+    private void setupSalaryColumns() {
+        colEmpID1.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getEmpID()));
+        colFirstName1.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getFirstName()));
+        colLastName1.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getLastName()));
+        colEmail1.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getEmail()));
+        colEmploymentDate1.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getEmploymentDate()));
+        colSalary1.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getSalary()));
+        colSSN1.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getSSN()));
+        colAddressID1.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getAddressID()));
+        colDOB1.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getDob()));
+        colPhone1.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getPhoneNumber()));
+        colEmergencyName1.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getEmergencyContactName()));
+        colEmergencyPhone1.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getEmergencyContactPhone()));
+    }
+
     private void showEditDialog(Employee employee) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("HR Admin: Edit Employee");
@@ -475,6 +508,54 @@ private void setupTableSelection() {
         addEmploymentDate.clear(); addSalary.clear(); addSSN.clear();
         addAddressID.clear(); addDOB.clear(); addPhone.clear();
         addEmergencyName.clear(); addEmergencyPhone.clear();
+    }
+
+    //SALARY ADJUSTMENT HANDLER
+    @FXML
+    private void handleUpdateSalary(ActionEvent event) {
+        if (currentEmployee == null || !currentEmployee.getClassify()) {
+            System.out.println("Access denied: must be an admin to adjust salaries.");
+            return;
+        }
+
+        String upperText = salaryUpperBound.getText().trim();
+        String lowerText = salaryLowerBound.getText().trim();
+        String percentText = salaryAdjustPercent.getText().trim();
+
+        if (upperText.isEmpty() || lowerText.isEmpty() || percentText.isEmpty()) {
+            System.out.println("Error: All salary adjustment fields must be filled.");
+            return;
+        }
+
+        double upper, lower, percent;
+        try {
+            upper = Double.parseDouble(upperText);
+            lower = Double.parseDouble(lowerText);
+            percent = Double.parseDouble(percentText);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Salary bounds and adjustment % must be numeric.");
+            return;
+        }
+
+        if (lower > upper) {
+            System.out.println("Error: Lower bound cannot exceed upper bound.");
+            return;
+        }
+
+        EmployeeRepository repo = new EmployeeRepository();
+        java.util.List<Employee> affected = repo.updateSalariesInRange(lower, upper, percent);
+
+        if (employeeTable1 != null) {
+            setupSalaryColumns();
+            employeeTable1.getItems().clear();
+            if (!affected.isEmpty()) {
+                employeeTable1.getItems().addAll(affected);
+            }
+        }
+
+        salaryUpperBound.clear();
+        salaryLowerBound.clear();
+        salaryAdjustPercent.clear();
     }
 
     @FXML
