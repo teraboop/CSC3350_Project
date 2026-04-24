@@ -8,6 +8,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Reports {
+    private IDataSource dbConnector;
+
+    public Reports() {
+        this.dbConnector = new DatabaseConnector();
+    }
+
+    // Constructor for dependency injection (e.g. unit tests with a mock IDataSource)
+    public Reports(IDataSource dbConnector) {
+        this.dbConnector = dbConnector;
+    }
+
     /**
      * Retrieves all payroll records for the given employee and returns them
      * as a formatted table string.
@@ -21,11 +32,10 @@ public class Reports {
         String header = String.format("%-15s %-10s %-12s %-10s %-15s %-10s %-10s %-10s%n",
         "PAYMENT DATE", "EARNINGS", "FEDERAL TAX", "MEDICARE", "SOCIAL SECURITY", "STATE TAX", "401K", "HEALTHCARE");
         output.append(header);
-        DatabaseConnector dbConn = new DatabaseConnector();
         int ID = emp.getEmpID();
 
         // The connection will close automatically after the catch block
-        try (Connection conn = dbConn.getConnection()) {
+        try (Connection conn = dbConnector.getConnection()) {
             String query = "SELECT pay_date, earnings, fed_tax, fed_med, fed_SS, state_tax, " + 
                         "retirement_401k, health_care FROM payroll WHERE emp_id = ?";
             
@@ -78,11 +88,10 @@ public class Reports {
         "PAYMENT DATE", "EARNINGS", "FEDERAL TAX", "MEDICARE", "SOCIAL SECURITY", "STATE TAX", "401K", "HEALTHCARE");
         output.append(header);
 
-        DatabaseConnector dbConn = new DatabaseConnector();
         String getEmp = "SELECT emp_id from employee_job_titles WHERE job_title_id = ?";
 
         ArrayList<Integer> empList = new ArrayList<>();
-        try(Connection conn = dbConn.getConnection()){
+        try(Connection conn = dbConnector.getConnection()){
             try(PreparedStatement stmt = conn.prepareStatement(getEmp)){
                 stmt.setInt(1, titleID);
                 try(ResultSet rs = stmt.executeQuery()){
@@ -155,11 +164,10 @@ public class Reports {
         "PAYMENT DATE", "EARNINGS", "FEDERAL TAX", "MEDICARE", "SOCIAL SECURITY", "STATE TAX", "401K", "HEALTHCARE");
         output.append(header);
 
-        DatabaseConnector dbConn = new DatabaseConnector();
         String getEmp = "SELECT emp_id from employee_division WHERE div_id = ?";
 
         ArrayList<Integer> empList = new ArrayList<>();
-        try(Connection conn = dbConn.getConnection()){
+        try(Connection conn = dbConnector.getConnection()){
             try(PreparedStatement stmt = conn.prepareStatement(getEmp)){
                 stmt.setInt(1, divID);
                 try(ResultSet rs = stmt.executeQuery()){

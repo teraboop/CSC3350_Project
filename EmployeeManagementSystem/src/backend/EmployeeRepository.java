@@ -11,6 +11,11 @@ public class EmployeeRepository {
         this.dbConnector = new DatabaseConnector();
     }
 
+    // Constructor for dependency injection (e.g. unit tests with a mock IDataSource)
+    public EmployeeRepository(IDataSource dbConnector) {
+        this.dbConnector = dbConnector;
+    }
+
     // Helper to map a result row to an Employee (or HRAdmin)
     private Employee mapRowToEmployee(ResultSet rs) throws SQLException {
         int emp_id = rs.getInt("emp_id");
