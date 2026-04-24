@@ -406,7 +406,8 @@ public class Controller {
 
         // 1. Buttons
         ButtonType saveButtonType = new ButtonType("Save Changes", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+        ButtonType deleteButtonType = new ButtonType("Delete", ButtonBar.ButtonData.OTHER);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, deleteButtonType, ButtonType.CANCEL);
 
         // 2. Layout & Separate Fields
         GridPane grid = new GridPane();
@@ -459,6 +460,25 @@ public class Controller {
 
         dialog.getDialogPane().setContent(grid);
 
+        // Two-phase delete button
+        Button deleteButton = (Button) dialog.getDialogPane().lookupButton(deleteButtonType);
+        deleteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
+        boolean[] deleteConfirmPending = {false};
+        boolean[] wasDeleted = {false};
+        deleteButton.addEventFilter(ActionEvent.ACTION, event -> {
+            event.consume(); // prevent dialog from closing on first click
+            if (!deleteConfirmPending[0]) {
+                deleteConfirmPending[0] = true;
+                deleteButton.setText("Confirm Delete");
+                deleteButton.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;");
+            } else {
+                EmployeeRepository repo = new EmployeeRepository();
+                repo.delete(employee.getEmpID());
+                wasDeleted[0] = true;
+                dialog.close();
+            }
+        });
+
         // 3. Logic for Save
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == saveButtonType) {
@@ -502,7 +522,11 @@ public class Controller {
         });
 
         dialog.showAndWait();
-        employeeTable.refresh(); // Visual update for the table
+        if (wasDeleted[0]) {
+            refreshSearchTab(); // Re-query DB so deleted employee disappears
+        } else {
+            employeeTable.refresh(); // Visual update for edits
+        }
     }
 
 private void setupTableSelection() {
