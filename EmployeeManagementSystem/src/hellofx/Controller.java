@@ -374,7 +374,9 @@ public class Controller {
         colEmail.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getEmail()));
         colEmploymentDate.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getEmploymentDate()));
         colSalary.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getSalary()));
-        colSSN.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getSSN()));
+        if(currentEmployee.getClassify()){
+            colSSN.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getSSN()));
+        }
         colAddressID.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getAddressID()));
         colDOB.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getDob()));
         colPhone.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getPhoneNumber()));
@@ -733,8 +735,16 @@ private void setupTableSelection() {
 
         if (employee != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("mainscreen.fxml"));
-                Parent mainRoot = loader.load();
+                FXMLLoader loader;
+                Parent mainRoot;
+                if(employee.getClassify()){
+                    loader = new FXMLLoader(getClass().getResource("mainscreen.fxml"));
+                    mainRoot = loader.load();
+                }
+                else{
+                    loader = new FXMLLoader(getClass().getResource("restrictedscreen.fxml"));
+                    mainRoot = loader.load();
+                }
 
                 Controller mainController = loader.getController();
                 mainController.setCurrentEmployee(employee);
